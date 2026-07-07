@@ -1,0 +1,860 @@
+/* ==========================================================================
+   Sistema de diseño mobile-first, tipografía Inter
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap');
+
+:root {
+  color-scheme: light only;
+
+  /* Marca */
+  --rojo: #C8102E;
+  --rojo-oscuro: #970C22/* ==========================================================================
+   Sistema de diseño mobile-first, tipografía Inter
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap');
+
+:root {
+  color-scheme: light only;
+
+  /* Marca */
+  --rojo: #C8102E;
+  --rojo-oscuro: #970C22;
+  --rojo-bg: #FDEEEF;
+  --azul: #14294A;
+  --azul-suave: #1B3A5C;
+  --azul-bg: #EEF2F7;
+
+  /* Superficies */
+  --fondo: #F3F5F8;
+  --superficie: #FFFFFF;
+  --borde: #E4E8EF;
+  --borde-suave: #EDF0F5;
+
+  /* Estado */
+  --verde: #0F9D58;
+  --verde-bg: #E7F7EE;
+  --verde-borde: #B9EAD0;
+  --amarillo: #B45309;
+  --amarillo-bg: #FEF3E2;
+  --amarillo-borde: #F6DDAF;
+
+  /* Texto */
+  --texto: #14294A;
+  --texto-sec: #5B6B84;
+  --texto-terciario: #8A97AC;
+
+  /* Forma */
+  --radio-sm: 8px;
+  --radio-md: 12px;
+  --radio-lg: 16px;
+  --sombra: 0 1px 2px rgba(20,41,74,0.05), 0 4px 14px rgba(20,41,74,0.06);
+  --sombra-sm: 0 1px 2px rgba(20,41,74,0.06);
+}
+
+/* ---------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------- */
+html, body, .stApp {
+  background-color: var(--fondo) !important;
+  color: var(--texto) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+* { -webkit-font-smoothing: antialiased; }
+
+h1, h2, h3, .app-header .titles h1 {
+  font-family: 'Inter Tight', 'Inter', sans-serif !important;
+  letter-spacing: -0.01em;
+}
+
+p, span, div, label { letter-spacing: -0.005em; }
+
+::selection { background: var(--rojo); color: #fff; }
+
+button:focus-visible, input:focus-visible, textarea:focus-visible,
+[data-baseweb="select"]:focus-within {
+  outline: 2px solid var(--azul-suave) !important;
+  outline-offset: 2px;
+}
+
+input, textarea, select,
+div[data-baseweb="input"] > div,
+div[data-baseweb="select"] > div,
+div[data-baseweb="textarea"],
+div[data-baseweb="base-input"] {
+  background-color: #ffffff !important;
+  color: var(--texto) !important;
+  border-color: var(--borde) !important;
+  border-radius: var(--radio-sm) !important;
+}
+div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input,
+div[data-testid="stDateInput"] input,
+div[data-testid="stTimeInput"] input,
+div[data-testid="stTextArea"] textarea {
+  background-color: #ffffff !important;
+  color: var(--texto) !important;
+  -webkit-text-fill-color: var(--texto) !important;
+}
+.stSelectbox div[data-baseweb="select"] * { color: var(--texto) !important; }
+[data-testid="stWidgetLabel"] p { color: var(--texto) !important; font-weight: 600; font-size: 0.85rem; }
+.streamlit-expanderHeader { color: var(--texto) !important; font-weight: 600; }
+
+/* ---------------------------------------------------------------------
+   Layout — vista tipo app móvil, centrada, con espacio para barra fija
+   --------------------------------------------------------------------- */
+.block-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-top: 3.2rem !important;
+  padding-bottom: 6rem !important;
+}
+@media (min-width: 900px) {
+  .block-container { max-width: 520px; }
+}
+header[data-testid="stHeader"] {
+  height: 2.4rem;
+  background: rgba(243,245,248,0.9) !important;
+  backdrop-filter: blur(6px);
+}
+div[data-testid="stToolbar"] { right: 0.3rem; }
+
+/* ---------------------------------------------------------------------
+   Encabezado de pantalla
+   --------------------------------------------------------------------- */
+.app-header {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.9rem 0.1rem 1.1rem 0.1rem; margin-bottom: 0.7rem;
+  border-bottom: 1px solid var(--borde);
+}
+.app-header .icon-box {
+  width: 42px; height: 42px; border-radius: var(--radio-md);
+  background: linear-gradient(145deg, var(--rojo), var(--rojo-oscuro)); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(200,16,46,0.28);
+}
+.app-header .titles { flex: 1; min-width: 0; }
+.app-header .titles h1 {
+  font-size: 1.12rem; margin: 0; color: var(--azul); font-weight: 800;
+  line-height: 1.25;
+}
+.app-header .titles p {
+  font-size: 0.82rem; margin: 0.1rem 0 0 0; color: var(--texto-sec);
+}
+.icon-box-derecha {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--azul-bg); color: var(--azul-suave);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------
+   Tarjetas / contenedores con borde
+   --------------------------------------------------------------------- */
+.card {
+  background: var(--superficie); padding: 1.1rem 1.2rem; border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-sm); margin-bottom: 0.9rem;
+  border: 1px solid var(--borde);
+}
+.card h3 { margin-top: 0; }
+
+div[data-testid="stVerticalBlockBorderWrapper"] {
+  border-radius: var(--radio-lg) !important;
+  border-color: var(--borde) !important;
+  box-shadow: var(--sombra-sm);
+  background: var(--superficie);
+  margin-bottom: 0.75rem;
+}
+
+/* ---------------------------------------------------------------------
+   Login / restricción de acceso
+   --------------------------------------------------------------------- */
+.login-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 2.6rem 0.5rem 1.5rem 0.5rem;
+}
+.login-wrap .login-icon {
+  width: 68px; height: 68px; border-radius: 20px;
+  background: linear-gradient(145deg, var(--rojo), var(--rojo-oscuro));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin-bottom: 1.1rem;
+  box-shadow: 0 8px 22px rgba(200,16,46,0.3);
+}
+.login-wrap h1 {
+  font-size: 1.35rem; color: var(--azul); font-weight: 800; margin: 0 0 0.35rem 0;
+}
+.login-wrap p {
+  font-size: 0.88rem; color: var(--texto-sec); margin: 0 0 1.6rem 0; max-width: 320px;
+}
+.login-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--azul-bg); color: var(--azul-suave);
+  font-size: 0.76rem; font-weight: 700; padding: 0.3rem 0.75rem;
+  border-radius: 999px; margin-top: 1.4rem;
+}
+.login-footer {
+  font-size: 0.72rem; color: var(--texto-terciario); margin-top: 0.9rem;
+}
+.user-chip {
+  display: flex; align-items: center; gap: 0.55rem;
+  background: var(--superficie); border: 1px solid var(--borde);
+  border-radius: 999px; padding: 0.35rem 0.7rem 0.35rem 0.35rem;
+  margin-bottom: 0.6rem; box-shadow: var(--sombra-sm);
+}
+.user-chip .avatar-circle { width: 28px; height: 28px; font-size: 0.7rem; }
+.user-chip .u-name { font-size: 0.82rem; font-weight: 700; color: var(--azul); line-height: 1.1; }
+.user-chip .u-mail { font-size: 0.68rem; color: var(--texto-terciario); line-height: 1.1; }
+
+/* ---------------------------------------------------------------------
+   Banner de cliente activo
+   --------------------------------------------------------------------- */
+.banner-cliente {
+  background: linear-gradient(135deg, var(--verde-bg), #F3FCF7);
+  border: 1px solid var(--verde-borde);
+  border-radius: var(--radio-lg); padding: 1.05rem 1.2rem; margin-bottom: 0.9rem;
+}
+.banner-cliente .nombre { font-size: 1.18rem; font-weight: 800; color: var(--azul); }
+.banner-cliente .dni { font-size: 0.85rem; color: var(--texto-sec); margin-top: 0.15rem; }
+
+/* ---------------------------------------------------------------------
+   Badges de estado
+   --------------------------------------------------------------------- */
+.badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+.badge-ok   { background: var(--verde-bg); color: var(--verde); border: 1px solid var(--verde-borde); }
+.badge-warn { background: var(--amarillo-bg); color: var(--amarillo); border: 1px solid var(--amarillo-borde); }
+.badge-pend { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #F6C6CC; }
+.badge-encontrado {
+  background: var(--verde-bg); color: var(--verde); border: 1px solid var(--verde-borde);
+  font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+   Paneles de criterio de riesgo
+   --------------------------------------------------------------------- */
+.panel-riesgo-on {
+  background: var(--rojo-bg); border-left: 4px solid var(--rojo);
+  border-radius: var(--radio-md); padding: 0.85rem 1rem; margin-bottom: 0.6rem;
+}
+.panel-riesgo-off {
+  background: #F8FAFC; border-left: 4px solid var(--borde);
+  border-radius: var(--radio-md); padding: 0.85rem 1rem; margin-bottom: 0.6rem;
+}
+
+/* ---------------------------------------------------------------------
+   Botones
+   --------------------------------------------------------------------- */
+div.stButton > button {
+  background-color: var(--rojo); color: white !important; border: none;
+  border-radius: var(--radio-sm); font-weight: 700; padding: 0.62rem 1rem;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+div.stButton > button:hover { background-color: var(--rojo-oscuro); color: white !important; }
+div.stButton > button:active { transform: scale(0.98); }
+div.stButton > button:disabled { background-color: #D8DEE8; color: #97A2B5 !important; }
+div.stButton > button[kind="secondary"] {
+  background-color: var(--superficie) !important; color: var(--azul) !important;
+  border: 1px solid var(--borde) !important;
+}
+div.stButton > button[kind="secondary"]:hover { background-color: var(--azul-bg) !important; }
+
+.stDownloadButton > button {
+  background-color: var(--azul) !important; color: white !important;
+  border-radius: var(--radio-sm); font-weight: 700;
+}
+.stDownloadButton > button:hover { background-color: var(--azul-suave) !important; }
+
+.btn-microsoft button {
+  background-color: var(--superficie) !important; color: var(--texto) !important;
+  border: 1px solid var(--borde) !important; font-weight: 600 !important;
+}
+.btn-microsoft button:hover { background-color: #F7F8FA !important; }
+
+/* ---------------------------------------------------------------------
+   Panel "archivo procesado"
+   --------------------------------------------------------------------- */
+.processed-panel {
+  background: linear-gradient(135deg, var(--verde-bg), #F3FCF7);
+  border: 1px solid var(--verde-borde); border-radius: var(--radio-lg);
+  padding: 1.1rem 1.2rem; text-align: left; margin-bottom: 0.4rem;
+}
+.processed-head {
+  font-weight: 700; color: var(--verde); font-size: 0.9rem; margin-bottom: 0.7rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.processed-head::before { content: "✅"; }
+.processed-file {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: rgba(255,255,255,0.7); border-radius: var(--radio-sm);
+  padding: 0.6rem 0.7rem; margin-bottom: 0.8rem;
+}
+.processed-file .file-icon::before { content: "📄"; font-size: 1.3rem; }
+.processed-file .file-name { font-weight: 700; font-size: 0.85rem; color: var(--azul); word-break: break-word; }
+.processed-file .file-meta { font-size: 0.72rem; color: var(--texto-sec); }
+.processed-count { font-size: 1.9rem; font-weight: 800; color: var(--azul); line-height: 1; }
+.processed-count-label { font-size: 0.75rem; color: var(--texto-sec); margin-top: 0.15rem; }
+
+/* ---------------------------------------------------------------------
+   Estado del sistema
+   --------------------------------------------------------------------- */
+.estado-sistema-dot { font-size: 0.7rem; }
+
+/* ---------------------------------------------------------------------
+   Búsqueda — indicador "en vivo" y tip
+   --------------------------------------------------------------------- */
+.usuario-bar-label {
+  font-size: 0.78rem; font-weight: 700; color: var(--texto-sec);
+  padding-top: 0.55rem;
+}
+.live-indicator {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.76rem; color: var(--texto-sec); margin: 0.3rem 0 0.6rem 0.1rem;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--verde);
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.75); }
+}
+.tip-box {
+  background: var(--azul-bg); border: 1px solid #D6E0EE;
+  border-radius: var(--radio-md); padding: 0.8rem 1rem;
+  font-size: 0.8rem; color: var(--azul-suave); margin-top: 0.8rem; line-height: 1.45;
+}
+
+/* ---------------------------------------------------------------------
+   Tarjeta de cliente encontrado
+   --------------------------------------------------------------------- */
+.cliente-card {
+  background: var(--superficie); border: 1px solid var(--borde);
+  border-radius: var(--radio-lg); padding: 0.95rem 1.05rem;
+  box-shadow: var(--sombra-sm); margin-bottom: 0.6rem;
+}
+.cliente-card-top { display: flex; align-items: center; gap: 0.65rem; }
+.cliente-nombre-wrap { flex: 1; min-width: 0; }
+.cliente-nombre {
+  font-weight: 700; font-size: 0.95rem; color: var(--azul);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.dato-fila { padding: 0.15rem 0; }
+
+.avatar-circle {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(145deg, var(--azul-suave), var(--azul));
+  color: #fff; font-weight: 700; font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.avatar-chica { width: 32px; height: 32px; font-size: 0.72rem; }
+
+/* ---------------------------------------------------------------------
+   Lista de clientes similares
+   --------------------------------------------------------------------- */
+.similar-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: var(--superficie); border: 1px solid var(--borde-suave);
+  border-radius: var(--radio-md); padding: 0.6rem 0.75rem; margin-bottom: 0.4rem;
+}
+.similar-info { flex: 1; min-width: 0; }
+.similar-nombre {
+  font-size: 0.83rem; font-weight: 700; color: var(--azul);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.similar-dni { font-size: 0.72rem; color: var(--texto-terciario); }
+.similar-saldo { font-size: 0.8rem; font-weight: 700; color: var(--texto-sec); white-space: nowrap; }
+
+/* ---------------------------------------------------------------------
+   Stepper (pasos de la visita)
+   --------------------------------------------------------------------- */
+.stepper { display: flex; justify-content: space-between; margin: 0.4rem 0 1rem 0; }
+.stepper .step { text-align: center; flex: 1; }
+.stepper .circle {
+  width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 4px auto;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700;
+  background: var(--borde); color: var(--texto-terciario);
+}
+.stepper .circle.activo { background: var(--azul); color: white; }
+.stepper .circle.hecho { background: var(--verde); color: white; }
+.stepper .label { font-size: 0.65rem; color: var(--texto-sec); }
+
+/* ---------------------------------------------------------------------
+   Barra inferior / navegación
+   --------------------------------------------------------------------- */
+.bottom-nav-spacer { height: 70px; }
+div[data-testid="stHorizontalBlock"].bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--superficie); border-top: 1px solid var(--borde);
+  padding: 0.3rem 0.5rem; z-index: 999; max-width: 480px; margin: 0 auto;
+}
+
+[data-testid="stMetricValue"] { color: var(--azul); }
+
+iframe[title="st.iframe"] { border-radius: var(--radio-md); }
+
+/* ---------------------------------------------------------------------
+   Menú superior por íconos
+   --------------------------------------------------------------------- */
+.top-menu-spacer { height: 0.2rem; }
+div[data-testid="stHorizontalBlock"].top-menu div.stButton > button {
+  background-color: transparent !important; color: var(--azul) !important;
+  border: 1px solid var(--borde); border-radius: var(--radio-sm);
+  padding: 0.4rem 0.2rem; font-size: 0.9rem; font-weight: 600;
+}
+div[data-testid="stHorizontalBlock"].top-menu div.stButton > button:hover {
+  background-color: var(--verde-bg) !important;
+}
+
+/* ---------------------------------------------------------------------
+   Información del crédito — chips
+   --------------------------------------------------------------------- */
+.info-credito { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.3rem 0; }
+.chip, .info-credito .chip {
+  flex: 1 1 130px; min-width: 110px;
+  background: #F8FAFC; border: 1px solid var(--borde-suave);
+  border-radius: var(--radio-sm); padding: 0.5rem 0.65rem;
+}
+.chip .lbl, .info-credito .chip .lbl { font-size: 0.68rem; color: var(--texto-terciario); font-weight: 600; }
+.chip .val, .info-credito .chip .val {
+  font-size: 0.85rem; color: var(--azul); font-weight: 700;
+  word-break: break-word; white-space: normal; line-height: 1.25;
+}
+
+/* ---------------------------------------------------------------------
+   Botones al pie (Atrás / Siguiente)
+   --------------------------------------------------------------------- */
+.nav-pie div[data-testid="column"] { padding: 0 0.2rem; }
+.nav-pie div.stButton > button { padding: 0.55rem 0.4rem; font-size: 0.85rem; }
+
+/* ---------------------------------------------------------------------
+   Estado de conexión OneDrive
+   --------------------------------------------------------------------- */
+.onedrive-status {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 0.75rem; border-radius: var(--radio-sm);
+  font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;
+}
+.onedrive-ok { background: var(--verde-bg); color: var(--verde); }
+.onedrive-off { background: var(--amarillo-bg); color: var(--amarillo); }
+
+  --rojo-bg: #FDEEEF;
+  --azul: #14294A;
+  --azul-suave: #1B3A5C;
+  --azul-bg: #EEF2F7;
+
+  /* Superficies */
+  --fondo: #F3F5F8;
+  --superficie: #FFFFFF;
+  --borde: #E4E8EF;
+  --borde-suave: #EDF0F5;
+
+  /* Estado */
+  --verde: #0F9D58;
+  --verde-bg: #E7F7EE;
+  --verde-borde: #B9EAD0;
+  --amarillo: #B45309;
+  --amarillo-bg: #FEF3E2;
+  --amarillo-borde: #F6DDAF;
+
+  /* Texto */
+  --texto: #14294A;
+  --texto-sec: #5B6B84;
+  --texto-terciario: #8A97AC;
+
+  /* Forma */
+  --radio-sm: 8px;
+  --radio-md: 12px;
+  --radio-lg: 16px;
+  --sombra: 0 1px 2px rgba(20,41,74,0.05), 0 4px 14px rgba(20,41,74,0.06);
+  --sombra-sm: 0 1px 2px rgba(20,41,74,0.06);
+}
+
+/* ---------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------- */
+html, body, .stApp {
+  background-color: var(--fondo) !important;
+  color: var(--texto) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+* { -webkit-font-smoothing: antialiased; }
+
+h1, h2, h3, .app-header .titles h1 {
+  font-family: 'Inter Tight', 'Inter', sans-serif !important;
+  letter-spacing: -0.01em;
+}
+
+p, span, div, label { letter-spacing: -0.005em; }
+
+::selection { background: var(--rojo); color: #fff; }
+
+button:focus-visible, input:focus-visible, textarea:focus-visible,
+[data-baseweb="select"]:focus-within {
+  outline: 2px solid var(--azul-suave) !important;
+  outline-offset: 2px;
+}
+
+input, textarea, select,
+div[data-baseweb="input"] > div,
+div[data-baseweb="select"] > div,
+div[data-baseweb="textarea"],
+div[data-baseweb="base-input"] {
+  background-color: #ffffff !important;
+  color: var(--texto) !important;
+  border-color: var(--borde) !important;
+  border-radius: var(--radio-sm) !important;
+}
+div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input,
+div[data-testid="stDateInput"] input,
+div[data-testid="stTimeInput"] input,
+div[data-testid="stTextArea"] textarea {
+  background-color: #ffffff !important;
+  color: var(--texto) !important;
+  -webkit-text-fill-color: var(--texto) !important;
+}
+.stSelectbox div[data-baseweb="select"] * { color: var(--texto) !important; }
+[data-testid="stWidgetLabel"] p { color: var(--texto) !important; font-weight: 600; font-size: 0.85rem; }
+.streamlit-expanderHeader { color: var(--texto) !important; font-weight: 600; }
+
+/* ---------------------------------------------------------------------
+   Layout — vista tipo app móvil, centrada, con espacio para barra fija
+   --------------------------------------------------------------------- */
+.block-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-top: 3.2rem !important;
+  padding-bottom: 6rem !important;
+}
+@media (min-width: 900px) {
+  .block-container { max-width: 520px; }
+}
+header[data-testid="stHeader"] {
+  height: 2.4rem;
+  background: rgba(243,245,248,0.9) !important;
+  backdrop-filter: blur(6px);
+}
+div[data-testid="stToolbar"] { right: 0.3rem; }
+
+/* ---------------------------------------------------------------------
+   Encabezado de pantalla
+   --------------------------------------------------------------------- */
+.app-header {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.9rem 0.1rem 1.1rem 0.1rem; margin-bottom: 0.7rem;
+  border-bottom: 1px solid var(--borde);
+}
+.app-header .icon-box {
+  width: 42px; height: 42px; border-radius: var(--radio-md);
+  background: linear-gradient(145deg, var(--rojo), var(--rojo-oscuro)); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(200,16,46,0.28);
+}
+.app-header .titles { flex: 1; min-width: 0; }
+.app-header .titles h1 {
+  font-size: 1.12rem; margin: 0; color: var(--azul); font-weight: 800;
+  line-height: 1.25;
+}
+.app-header .titles p {
+  font-size: 0.82rem; margin: 0.1rem 0 0 0; color: var(--texto-sec);
+}
+.icon-box-derecha {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--azul-bg); color: var(--azul-suave);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------
+   Tarjetas / contenedores con borde
+   --------------------------------------------------------------------- */
+.card {
+  background: var(--superficie); padding: 1.1rem 1.2rem; border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-sm); margin-bottom: 0.9rem;
+  border: 1px solid var(--borde);
+}
+.card h3 { margin-top: 0; }
+
+div[data-testid="stVerticalBlockBorderWrapper"] {
+  border-radius: var(--radio-lg) !important;
+  border-color: var(--borde) !important;
+  box-shadow: var(--sombra-sm);
+  background: var(--superficie);
+  margin-bottom: 0.75rem;
+}
+
+/* ---------------------------------------------------------------------
+   Login / restricción de acceso
+   --------------------------------------------------------------------- */
+.login-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 2.6rem 0.5rem 1.5rem 0.5rem;
+}
+.login-wrap .login-icon {
+  width: 68px; height: 68px; border-radius: 20px;
+  background: linear-gradient(145deg, var(--rojo), var(--rojo-oscuro));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin-bottom: 1.1rem;
+  box-shadow: 0 8px 22px rgba(200,16,46,0.3);
+}
+.login-wrap h1 {
+  font-size: 1.35rem; color: var(--azul); font-weight: 800; margin: 0 0 0.35rem 0;
+}
+.login-wrap p {
+  font-size: 0.88rem; color: var(--texto-sec); margin: 0 0 1.6rem 0; max-width: 320px;
+}
+.login-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--azul-bg); color: var(--azul-suave);
+  font-size: 0.76rem; font-weight: 700; padding: 0.3rem 0.75rem;
+  border-radius: 999px; margin-top: 1.4rem;
+}
+.login-footer {
+  font-size: 0.72rem; color: var(--texto-terciario); margin-top: 0.9rem;
+}
+.user-chip {
+  display: flex; align-items: center; gap: 0.55rem;
+  background: var(--superficie); border: 1px solid var(--borde);
+  border-radius: 999px; padding: 0.35rem 0.7rem 0.35rem 0.35rem;
+  margin-bottom: 0.6rem; box-shadow: var(--sombra-sm);
+}
+.user-chip .avatar-circle { width: 28px; height: 28px; font-size: 0.7rem; }
+.user-chip .u-name { font-size: 0.82rem; font-weight: 700; color: var(--azul); line-height: 1.1; }
+.user-chip .u-mail { font-size: 0.68rem; color: var(--texto-terciario); line-height: 1.1; }
+
+/* ---------------------------------------------------------------------
+   Banner de cliente activo
+   --------------------------------------------------------------------- */
+.banner-cliente {
+  background: linear-gradient(135deg, var(--verde-bg), #F3FCF7);
+  border: 1px solid var(--verde-borde);
+  border-radius: var(--radio-lg); padding: 1.05rem 1.2rem; margin-bottom: 0.9rem;
+}
+.banner-cliente .nombre { font-size: 1.18rem; font-weight: 800; color: var(--azul); }
+.banner-cliente .dni { font-size: 0.85rem; color: var(--texto-sec); margin-top: 0.15rem; }
+
+/* ---------------------------------------------------------------------
+   Badges de estado
+   --------------------------------------------------------------------- */
+.badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+.badge-ok   { background: var(--verde-bg); color: var(--verde); border: 1px solid var(--verde-borde); }
+.badge-warn { background: var(--amarillo-bg); color: var(--amarillo); border: 1px solid var(--amarillo-borde); }
+.badge-pend { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #F6C6CC; }
+.badge-encontrado {
+  background: var(--verde-bg); color: var(--verde); border: 1px solid var(--verde-borde);
+  font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+   Paneles de criterio de riesgo
+   --------------------------------------------------------------------- */
+.panel-riesgo-on {
+  background: var(--rojo-bg); border-left: 4px solid var(--rojo);
+  border-radius: var(--radio-md); padding: 0.85rem 1rem; margin-bottom: 0.6rem;
+}
+.panel-riesgo-off {
+  background: #F8FAFC; border-left: 4px solid var(--borde);
+  border-radius: var(--radio-md); padding: 0.85rem 1rem; margin-bottom: 0.6rem;
+}
+
+/* ---------------------------------------------------------------------
+   Botones
+   --------------------------------------------------------------------- */
+div.stButton > button {
+  background-color: var(--rojo); color: white !important; border: none;
+  border-radius: var(--radio-sm); font-weight: 700; padding: 0.62rem 1rem;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+div.stButton > button:hover { background-color: var(--rojo-oscuro); color: white !important; }
+div.stButton > button:active { transform: scale(0.98); }
+div.stButton > button:disabled { background-color: #D8DEE8; color: #97A2B5 !important; }
+div.stButton > button[kind="secondary"] {
+  background-color: var(--superficie) !important; color: var(--azul) !important;
+  border: 1px solid var(--borde) !important;
+}
+div.stButton > button[kind="secondary"]:hover { background-color: var(--azul-bg) !important; }
+
+.stDownloadButton > button {
+  background-color: var(--azul) !important; color: white !important;
+  border-radius: var(--radio-sm); font-weight: 700;
+}
+.stDownloadButton > button:hover { background-color: var(--azul-suave) !important; }
+
+.btn-microsoft button {
+  background-color: var(--superficie) !important; color: var(--texto) !important;
+  border: 1px solid var(--borde) !important; font-weight: 600 !important;
+}
+.btn-microsoft button:hover { background-color: #F7F8FA !important; }
+
+/* ---------------------------------------------------------------------
+   Panel "archivo procesado"
+   --------------------------------------------------------------------- */
+.processed-panel {
+  background: linear-gradient(135deg, var(--verde-bg), #F3FCF7);
+  border: 1px solid var(--verde-borde); border-radius: var(--radio-lg);
+  padding: 1.1rem 1.2rem; text-align: left; margin-bottom: 0.4rem;
+}
+.processed-head {
+  font-weight: 700; color: var(--verde); font-size: 0.9rem; margin-bottom: 0.7rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.processed-head::before { content: "✅"; }
+.processed-file {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: rgba(255,255,255,0.7); border-radius: var(--radio-sm);
+  padding: 0.6rem 0.7rem; margin-bottom: 0.8rem;
+}
+.processed-file .file-icon::before { content: "📄"; font-size: 1.3rem; }
+.processed-file .file-name { font-weight: 700; font-size: 0.85rem; color: var(--azul); word-break: break-word; }
+.processed-file .file-meta { font-size: 0.72rem; color: var(--texto-sec); }
+.processed-count { font-size: 1.9rem; font-weight: 800; color: var(--azul); line-height: 1; }
+.processed-count-label { font-size: 0.75rem; color: var(--texto-sec); margin-top: 0.15rem; }
+
+/* ---------------------------------------------------------------------
+   Estado del sistema
+   --------------------------------------------------------------------- */
+.estado-sistema-dot { font-size: 0.7rem; }
+
+/* ---------------------------------------------------------------------
+   Búsqueda — indicador "en vivo" y tip
+   --------------------------------------------------------------------- */
+.usuario-bar-label {
+  font-size: 0.78rem; font-weight: 700; color: var(--texto-sec);
+  padding-top: 0.55rem;
+}
+.live-indicator {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.76rem; color: var(--texto-sec); margin: 0.3rem 0 0.6rem 0.1rem;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--verde);
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.75); }
+}
+.tip-box {
+  background: var(--azul-bg); border: 1px solid #D6E0EE;
+  border-radius: var(--radio-md); padding: 0.8rem 1rem;
+  font-size: 0.8rem; color: var(--azul-suave); margin-top: 0.8rem; line-height: 1.45;
+}
+
+/* ---------------------------------------------------------------------
+   Tarjeta de cliente encontrado
+   --------------------------------------------------------------------- */
+.cliente-card {
+  background: var(--superficie); border: 1px solid var(--borde);
+  border-radius: var(--radio-lg); padding: 0.95rem 1.05rem;
+  box-shadow: var(--sombra-sm); margin-bottom: 0.6rem;
+}
+.cliente-card-top { display: flex; align-items: center; gap: 0.65rem; }
+.cliente-nombre-wrap { flex: 1; min-width: 0; }
+.cliente-nombre {
+  font-weight: 700; font-size: 0.95rem; color: var(--azul);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.dato-fila { padding: 0.15rem 0; }
+
+.avatar-circle {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(145deg, var(--azul-suave), var(--azul));
+  color: #fff; font-weight: 700; font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.avatar-chica { width: 32px; height: 32px; font-size: 0.72rem; }
+
+/* ---------------------------------------------------------------------
+   Lista de clientes similares
+   --------------------------------------------------------------------- */
+.similar-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: var(--superficie); border: 1px solid var(--borde-suave);
+  border-radius: var(--radio-md); padding: 0.6rem 0.75rem; margin-bottom: 0.4rem;
+}
+.similar-info { flex: 1; min-width: 0; }
+.similar-nombre {
+  font-size: 0.83rem; font-weight: 700; color: var(--azul);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.similar-dni { font-size: 0.72rem; color: var(--texto-terciario); }
+.similar-saldo { font-size: 0.8rem; font-weight: 700; color: var(--texto-sec); white-space: nowrap; }
+
+/* ---------------------------------------------------------------------
+   Stepper (pasos de la visita)
+   --------------------------------------------------------------------- */
+.stepper { display: flex; justify-content: space-between; margin: 0.4rem 0 1rem 0; }
+.stepper .step { text-align: center; flex: 1; }
+.stepper .circle {
+  width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 4px auto;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700;
+  background: var(--borde); color: var(--texto-terciario);
+}
+.stepper .circle.activo { background: var(--azul); color: white; }
+.stepper .circle.hecho { background: var(--verde); color: white; }
+.stepper .label { font-size: 0.65rem; color: var(--texto-sec); }
+
+/* ---------------------------------------------------------------------
+   Barra inferior / navegación
+   --------------------------------------------------------------------- */
+.bottom-nav-spacer { height: 70px; }
+div[data-testid="stHorizontalBlock"].bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--superficie); border-top: 1px solid var(--borde);
+  padding: 0.3rem 0.5rem; z-index: 999; max-width: 480px; margin: 0 auto;
+}
+
+[data-testid="stMetricValue"] { color: var(--azul); }
+
+iframe[title="st.iframe"] { border-radius: var(--radio-md); }
+
+/* ---------------------------------------------------------------------
+   Menú superior por íconos
+   --------------------------------------------------------------------- */
+.top-menu-spacer { height: 0.2rem; }
+div[data-testid="stHorizontalBlock"].top-menu div.stButton > button {
+  background-color: transparent !important; color: var(--azul) !important;
+  border: 1px solid var(--borde); border-radius: var(--radio-sm);
+  padding: 0.4rem 0.2rem; font-size: 0.9rem; font-weight: 600;
+}
+div[data-testid="stHorizontalBlock"].top-menu div.stButton > button:hover {
+  background-color: var(--verde-bg) !important;
+}
+
+/* ---------------------------------------------------------------------
+   Información del crédito — chips
+   --------------------------------------------------------------------- */
+.info-credito { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.3rem 0; }
+.chip, .info-credito .chip {
+  flex: 1 1 130px; min-width: 110px;
+  background: #F8FAFC; border: 1px solid var(--borde-suave);
+  border-radius: var(--radio-sm); padding: 0.5rem 0.65rem;
+}
+.chip .lbl, .info-credito .chip .lbl { font-size: 0.68rem; color: var(--texto-terciario); font-weight: 600; }
+.chip .val, .info-credito .chip .val {
+  font-size: 0.85rem; color: var(--azul); font-weight: 700;
+  word-break: break-word; white-space: normal; line-height: 1.25;
+}
+
+/* ---------------------------------------------------------------------
+   Botones al pie (Atrás / Siguiente)
+   --------------------------------------------------------------------- */
+.nav-pie div[data-testid="column"] { padding: 0 0.2rem; }
+.nav-pie div.stButton > button { padding: 0.55rem 0.4rem; font-size: 0.85rem; }
+
+/* ---------------------------------------------------------------------
+   Estado de conexión OneDrive
+   --------------------------------------------------------------------- */
+.onedrive-status {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 0.75rem; border-radius: var(--radio-sm);
+  font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;
+}
+.onedrive-ok { background: var(--verde-bg); color: var(--verde); }
+.onedrive-off { background: var(--amarillo-bg); color: var(--amarillo); }
