@@ -1,0 +1,930 @@
+Ë
+    I¤Gj~«  ã                   ó8  — d Z ddlmZ ddlZddlZddlZddl mZm	Z	m
+Z
+m
+Z
+mZm
+Z
+mZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm Z m!Z!m"Z"m#Z#m$Z$m%Z%  ejL                  ddd d¬	«        ed
+«       d
+Z'dZ(d
+e)fd„Z*d„ Z+ e*«       s ejX                  d«       nÒejZ                  j\                  s e+«         ej^                  «        n£ejZ                  ja                  d«      xs djc                  «       Z2ejZ                  ja                  d«      xs dZ3e2ji                  e(«      sFe3e'k7  rA ejj                  d«        ejl                  dejn                  ¬«        ej^                  «        dddddi g g dddi dddœZ8e8js                  «       D ]#  \  Z:Z;e:ejx                  vsŒe;ejx                  e:<   Œ% d<d„Z=d„ Z>g d¢Z?dddd d!dœZ@d"„ ZAd#„ ZBd$„ ZCd%„ ZDd&„ ZEd'„ ZFd(„ ZGd)„ ZHd*„ ZId+„ ZJd,„ ZKd-„ ZLd.d/d0d1d2œZMd3„ ZNd4„ ZOd5„ ZPd6„ ZQ eB«        ejx                  j¤                  r eJ«        yejx                  j¦                  d7k(  rejx                  j¨                   eQ«        yejx                  j¦                  dk(  sejx                  jª                  € eF«        yejx                  j¦                  d8k(  r eK«        yejx                  j¦                  d9k(  r eL«        yejx                  j¦                  d:k(  r eN«        yejx                  j¦                  d;k(  r eP«        y eF«        y)=u   
+app.py â€” Visita a Clientes 
+é    )ÚdatetimeN)Úload_cssÚsafe_strÚ
+safe_floatÚ	fmt_moneyÚslugÚcargar_excelÚ
+CRITERIOS_DEFÚCLIENTE_VISITADO_OPCIONESÚhay_borradorÚguardar_borradorÚcargar_borradorÚborrar_borradorÚregistrar_historialÚleer_historialÚ
+ahora_peruÚcalcular_resultadoÚcriterios_seleccionados_listaÚgenerar_wordÚ
+generar_pdfÚguardar_reporte_en_carpetaÚsincronizar_historial_onedriveÚreporte_consolidado_por_agenciaÚreporte_consolidado_por_clienteÚ	inicialesÚclase_calificacionÚclientes_similaresÚsolo_digitosÚto_excelÚreporte_anexo07Úto_excel_anexo07zVisita a Clientesu   ðŸ¦ÚcenteredÚ	collapsed)Ú
+page_titleÚ	page_iconÚlayoutÚinitial_sidebar_statezassets/style.cssz$f3831aea-ec1b-461b-b42f-ca26f9f78551z@cajaarequipa.peÚreturnc                  óF   — 	 dt         j                  v S # t        $ r Y yw xY w)NÚauthF)ÚstÚ secretsÚ	Exception© ó    úapp.pyÚ_login_configurador1   (   s(   € ðØœŸ™Ð#Ð#øÜ
+ò Ùðús   ‚ ”	 Ÿ c                  ó  — t        j                  dd¬«       t        j                  dd¬«       t        j                  ddt         j                  dg¬ «       t        j                  dd¬«       t        j                  d	d¬«       y )
+Nu  <div class="login-wrap">
+                <div class="login-icon">ðŸ¦</div>
+                <h1>Visita a Clientes</h1>
+                <p>AuditorÃ­a Interna Â· Caja Arequipa. Inicia sesiÃ³n con tu
+                cuenta corporativa de Microsoft para continuar.</p>
+            </div>T©Úunsafe_allow_htmlz<div class="btn-microsoft">u#   ðŸ”‘  Iniciar sesiÃ³n con MicrosoftÚ	microsoft)Úuse_container_widthÚon_clickÚargsú</div>u   <div class="login-badge">ðŸ”’ Acceso restringido a personal de Caja Arequipa</div><div class="login-footer">Gerencia de AuditorÃ­a Interna</div>)r+   ÚmarkdownÚbuttonÚloginr.   r/   r0   Úpantalla_loginr=   /   sh   € Ü‡KKð	ð õô  ‡KKÐ-ÀÕFÜ‡IIÐ3ÈÜŸ™¨
+ }õ6ä‡KK¨DÕ1Ü‡KKð	Iàö r/   õ   âš ï¸ÚemailÚ Útidu|   ðŸš« Acceso restringido a personal de Caja Arequipa. La cuenta con la que iniciaste sesiÃ³n no pertenece a la organizaciÃ³n.u   Cerrar sesiÃ³n)r7   ÚbusquedaF)Ú usuarioÚviewÚdfÚ
+hoja_usadaÚcliente_actualÚ visitasÚ	garantiasÚrccÚborrador_promptÚultimo_archivoÚcliente_visitadoÚarchivo_metaÚmostrar_previewÚuploader_key_versionc           
+      ó`   — |rd|› dnd}t        j                  d| › d|› d|› d |› d	d	¬
+«       y )
+Nz<div class="icon-box-derecha">r9   r@   z?<div class="app-header">
+                <div class="icon-box">zD</div>
+                <div class="titles">
+                    <h1>z</h1>
+                    <p>z,</p>
+                </div>
+                z
+            </div>Tr3   ©r+   r:   )ÚiconoÚtituloÚ	subtituloÚ
+icono_derechaÚextras        r0   ÚheaderrX   m   sY   € áFSÐ,¨]¨O¸6ÑBÐY[€EÜ‡KKð
+'Ø', gð .à˜ð !Ø!{ð #à ð ð
+ 	ð ö
+r/   c                  ó@   — t        j                  d|› d| › dd¬«       y )Nz<span class="badge z">z </span>Tr3   rR   )ÚtextoÚclases     r0   Úbadger\   }   s!   € Ü‡KKÐ% e W¨B¨u¨g°WÐ=ÐQUÖVr/   )rB   Ú
+evaluacionÚfichaÚ	ubicacionÚ reporte)u   ðŸ”ÚBuscar)r>   ÚCriterio)õ   ðŸ‘¤Ú Cliente)õ   ðŸ“ÚVisita)õ   ðŸ“„Ú Reportec            
+      óP  — t        «       rt        t        j                  dd«      syt        j                  j	                  d«      xs# t        j                  j	                  d«      xs d} t        j                  j	                  d«      xs d }t        j
+                  dd	g«      \  }}|5  t        j                  d
+t        | «      › d
+| › d|› d
+ d¬«       ddd«       |5  t        j                  dddt        j                  ¬«       ddd«       y# 1 sw Y   Œ<xY w# 1 sw Y   yxY w)uF   Chip con el nombre del usuario autenticado y botÃ³n de cerrar sesiÃ³n.Úis_logged_inFNÚnamer?   Ú Usuarior@   gš™™™™™	@é   zG<div class="user-chip">
+                    <div class="avatar-circle">zM</div>
+                    <div>
+                        <div class="u-name">z3</div>
+                        <div class="u-mail">z8</div>
+                    </div>
+                </div>Tr3   ÚSalirÚbtn_logout_topbar)Úkeyr6   r7   )
+r1   Ú getattrr+   ÚuserÚgetÚ columnsr:   r   r;   Úlogout)ÚnombreÚcorreoÚc1Úc2s       r0   Ú
+barra_usuariorz   ‹   s  € ä
+Ô
+¤w¬r¯w©w¸ÈÔ'NØÜ
+W‰W[‰[˜Ó
+ Ò
+E¤B§G¡G§K¡K° Ó$8Ò
+E¸I€FÜ
+W‰W[‰[˜Ó
+!Ò
+' R€FÜ
+Z‰Z˜˜a˜Ó
+!F€BˆØ	
+ñ 
+
+Ü
+
+‰
+ð0Ü09¸&Ó0AÐ/Bð C-à-3¨Hð 5-Ø-3¨Hð 5ð	
+ð #õ		
+÷
+
+ð 
+ñ 'Ü
+	‰	'Ð2ÈÜŸI™Iõ	'÷'ð '÷
+
+ð 
+
+ú÷'ð 'ús   Â*+DÃ(DÄD ÄD% c            	      óv  — t        «        t        j                  dd¬«       t        j                  j                  t
+        t        «      ndg} t        j                  j                  du}t        | «      |rdnd z   }t        j                  dd¬«       t        j                  |«      }t        | «      D ]Ÿ  \  }}t        |   \  }} t        j                  j                  |k(  rd	nd
+}||   j                  |› d
+| › d|› dd
+| › t        j                  j                  |k(  rdnd¬«      sŒw|t        j                  _        t        j                  «        Œ¡ |rc|d   j                  ddddt        j                  j                  dk(  rdnd¬«      r*dt        j                  _        t        j                  «        yyy)uH   Barra de navegaciÃ³n.  "Resumen / Clientes / Visitas / MÃ¡s" del mockup.z#<div class="top-menu-spacer"></div>Tr3   NrB   rm   r   z$<div class="marker-bottomnav"></div>u    âœ…r@   ú Únav_zIr a Ú primaryÚ	secondary)rp   r6   ÚhelpÚtypeéÿÿÿÿu   ðŸ“Š ResumenÚnav_consolidadoz)Reporte consolidado por agencia y clienteÚ
+consolidado)rz   r+   r:   Ú
+session_staterG   ÚlistÚPASOSrE   Úlenrt   Ú	enumerateÚ
+PASOS_LABELrD   r;   Úrerun)	Úpasos_visiblesÚmostrar_consolidadoÚnÚcolsÚiÚpasorS   ÚlabelÚactivos	            r0   Útop_menur”   ¢   s‡  € ä„OÜ‡KKÐ5ÈÕNÜ$&×$4Ñ$4×$CÑ$CÐ$O”Tœ%”[ÐV`ÐUa€NÜ×*Ñ*×-Ñ-°TÐ9ÐÜ
+ˆNÓÑ$7™q¸QÑ?€AÜ‡KKÐ6È$ÕOÜ
+
+:‰:a‹=€DÜ˜^Ó,ò ‰ ˆˆ4Ü" 4Ñ(‰ˆˆuÜ×+Ñ+×0Ñ0°DÒ8‘¸bˆØ
+‰7>‰>˜U˜G 1 U GÐ,°D¸¸°-ÐUYØ"'¨ w Ä2×CSÑCS×CXÑCXÐ\`ÒC`±iÐfqð õ sà$(ŒB×ÑÔ!ÜH‰HJð
+ñ Ø
+‰8?‰?˜>Ð/@ÐVZØ!LÜ.0×.>Ñ.>×.CÑ.CÀ}Ò.T¡ÐZeð ô gð %2ŒB×ÑÔ!ÜH‰HJð	gð r/   c                 óV   — | t         j                  _        t        j                  «        y ©N)r+   r…   rD   r‹   )r‘   s    r0   Úir_ar—   º   s   € Ø „B×ÑÔÜ‡HH…Jr/   c                  ó>   — t         j                  j                  xs i S r–   )r+   r…   rG   r.   r/   r0   Ú clienter™   ¿   s   € Ü
+
+×
+Ñ
+×
+*Ñ
+*Ò
+0¨bÐ0r/   c                  ó˜   — t        «       } | r>t        t        j                  j                  t
+        | j
+                  d«      «      | «       y y )NÚDOCPEN) r™   r
+   r+   r…   rC   r   rs   )Úcs    r0   Úguardar_avancer   Ã   s6   € Ü‹	€AÙ Üœ×)Ñ)×1Ñ1´8¸A¿E¹EÀ(»OÓ3LÈaÕPð 	r/   c            
+      óÈ  — t        dddd¬«       t        j                  dd g«      \  } }| 5  t        j                  dd	¬
+«       d d d «       |5  t        j                  d
+t        j
+                  j                  dd
+d¬«      }|j                  «       t        j
+                  _        d d d «       t        j
+                  j                  st        j                  d«       y t        j                  d	¬«      5  t        j                  d«       t        j                  d«       t        j
+                  j                  €kddlm
+}m}m}  |«       rt        j                  d«       t        j                   dd	dd¬«      rÒt        j"                  d«      5   ||«      \  }} }d d d «       €t        j$                  d › «       nt'        |«      \  }	}
+}
+|	t        j
+                  _
+        |
+t        j
+                  _         t+        |«      dz
+  xs t-        «       j/                  d«      dœt        j
+                  _        t        j2                  «        t        j                  d d	¬
+«       t        j4                  d!d"d#gd$t        j
+                  j6                  › ¬%«      }|"t'        |j9                  «       «      \  }	}
+}
+|	t        j
+                  _
+        |
+t        j
+                  _        |j:                  t+        |j9                  «       «      dz
+  t-        «       j/                  d«      dœt        j
+                  _        |
+d&k7  rt        j<                  d'«       |
+r=t        j                  d(d)j?                  |
+d d* «      z   t+        |
+«      d*kD  rd+nd,z   «       t        j2                  «        nt        j
+                  j                  }
+t        j
+                  jA                  d-i «      xs i }t        j                  d.|jA                  d/d0«      › d1|jA                  d2d«      d3›d4|jA                  d5d,«      › d6t+        |
+«      d7›d8	d	¬
+«       t        j                  d9d	¬
+«       t        j                   d:d	d;¬<«      r.t        j
+                  jB                   t        j
+                  _!        t        j
+                  jB                  rJt        jD                  |
+jG                  d=«      d	d	¬>«       t        j                  d?t+        |
+«      d7›d@«       t        j                  dAd	¬
+«       t        j                   dBd	dC¬<«      r‹d t        j
+                  _
+        d,t        j
+                  _        i t        j
+                  _        dDt        j
+                  _!        t        j
+                  xj6                  dz
+  c_        t        j2                  «        d d d «       t        j                  d	¬«      5  t        j                  dE«       t        j
+                  j                  d u}t        j                  dF|rdGndH› dI|rdJndK› dLd	¬
+«       t        j
+                  jA                  d-i «      xs i }|r(t        j                  dM|jA                  d5d,«      › «       d d d «       t        j
+                  j                  }	|	€t        j                  dN«       y t        j                  d	¬«      5  t        j                  dO«       t        j                  dP«       t        j                  dQdg«      \  }}|5  t        j                  dRdSddT¬U«      }d d d «       |5  t        j                  dVd	¬
+«       t        j                   dRd	dW¬<«       d d d «       d d d «       sy t        j                  dXd	¬
+«       |j                  «       jI                  «       }tK        |«      }|	jA                  dYtM        jN                  d,|	jP                  ¬Z«      «      jS                  tT        «      jT                  jW                  |dDdD¬[«      |	jA                  d\tM        jN                  d,|	jP                  ¬Z«      «      jS                  tT        «      jT                  jW                  |dDdD¬[«      z   |	jA                  d]tM        jN                  d,|	jP                  ¬Z«      «      jS                  tT        «      jT                  jW                  |dDdD¬[«      z   |	jA                  d^tM        jN                  d,|	jP                  ¬Z«      «      jS                  tT        «      jT                  jW                  |dDdD¬[«      z   }|	|   jG                  d_«      }d }|jY                  «       D ]h  \  }}tK        |jA                  dY«      «      }t[        |jA                  d^«      «      j                  «       jI                  «       }|r||k(  s	|sŒ`||k(  sŒf|} n |€t+        |«      dk(  r|j\                  d   }|
+t_        ||	«       net+        |«      rEt        j                  d`«       t        j                  da«       ta        |jG                  db«      «       nt        j<                  dc«       t        j                  ddd	¬
+«       y # 1 sw Y   
+Œ:xY w# 1 sw Y   	ŒçxY w# 1 sw Y   ŒþxY w# 1 sw Y   ŒêxY w# 1 sw Y   Œ3xY w# 1 sw Y   ŒxY w# 1 sw Y   ŒbxY w# 1 sw Y   ŒgxY w)eNrc   zIngrese su usuarioz+Inserte su usuario para registrar la visitau   â“)rV   rm   gš™™™™™@u1   <div class="usuario-bar-label">ðŸ‘¤ Auditor</div>Tr3   zTu nombre / usuarioÚ
+input_usuariozEj: ASDLr#   )Úvaluerp   Ú
+placeholderÚlabel_visibilityz,Escribe tu nombre de usuario para continuar.©Úborderz**Carga de Base de Datos**z1Carga tu archivo Excel con la cartera de clientesr   )Úcredenciales_configuradasÚdescargar_excel_baseÚONEDRIVE_BASE_SHARE_URLu!   **â˜ï¸ Recomendado en celular**u   ðŸ“¥ Cargar base desde OneDriver~   Úbtn_cargar_onedrive©r6   r   rp   zDescargando desde OneDrive...z"No se pudo cargar desde OneDrive: i   z%d/%m/%Y %I:%M %p)rv   Ú	tamano_mbÚfechau{   <div style="text-align:center;color:#8A97AC;font-size:0.78rem;margin:0.5rem 0;">â€” o sube el archivo manualmente â€”</div>u>   Seleccionar archivo Excel â€” Formatos permitidos: .xlsx, .xlsÚxlsxÚxlsÚfile_uploader_main_)r   rp   Ú
+MUESTRA_FINALuM   No se encontrÃ³ la hoja 'MUESTRA_FINAL'; se usÃ³ la primera hoja del archivo.u-   Columnas no encontradas (quedarÃ¡n vacÃ­as): ú, é   z...r@   rN   aC  <div class="processed-panel">
+                        <div class="processed-head"> Archivo procesado correctamente</div>
+                        <div class="processed-file">
+                            <span class="file-icon"></span>
+                            <div>
+                                <div class="file-name">rv   zarchivo.xlsxz></div>
+                                <div class="file-meta">rª   z.1fu     MB Â· r«   z~</div>
+                            </div>
+                        </div>
+                        <div class="processed-count">ú,zu</div>
+                        <div class="processed-count-label">Registros cargados</div>
+                    </div>z&<div class="marker-vistaprevia"></div>z Vista previa de datosÚbtn_vista_previa©r6   rp   é   ©r6   Ú
+hide_indexzMostrando 20 de z
+ registros.z"<div class="marker-limpiar"></div>u?   ðŸ—‘ï¸ Limpiar base â€” esto eliminarÃ¡ la base actual cargadaÚbtn_limpiar_baseFz**Estado del Sistema**z!<span class="estado-sistema-dot">u   ðŸŸ¢õ   âšªz
+</span> **Ú	ConectadozSin datos cargadosú**u   Ãšltima actualizaciÃ³n: z1Sube el archivo Excel para poder buscar clientes.u   **ðŸ”Ž BÃºsqueda de Cliente**u0   Encuentra a tu cliente por nombre, DNI o cÃ³digogÍÌÌÌÌÌ@ra   u    Nombre, DNI o cÃ³digo de clienteÚinput_busqueda)r¡   r¢   rp   z!<div class="marker-buscar"></div>Ú
+btn_buscarzh<div class="live-indicator"><span class="live-dot"></span>Buscando coincidencias en tiempo real...</div>r›   )Úindex)ÚcaseÚnaÚBCCTAÚCODCLIÚ CLIENTEé
+   z(**No encontramos coincidencias exactas**z-Te mostramos clientes similares de tu agenciaé   z No se encontraron coincidencias.u¶   <div class="tip-box">
+                ðŸ’¡ <b>Consejo</b><br>
+                Puedes buscar por nombre completo, parcial, DNI o cÃ³digo de
+                cliente.
+            </div>)1rX   r+   rt   r:   Ú
+text_inputr…   rC   ÚstripÚinfoÚ	containerÚ captionrE   Úutils.onedriver¥   r¦   r§   r;   Ú spinnerÚerrorr	   rF   rˆ   r   ÚstrftimerN   r‹   Ú
+file_uploaderrP   Úgetvaluerk   Ú warningÚjoinrs   rO   Ú	dataframeÚheadÚlowerr   ÚpdÚSeriesr¾   ÚastypeÚstrÚcontainsÚiterrowsr   ÚilocÚrender_cliente_encontradoÚrender_lista_similares)Úcu1Úcu2rC   Ú_od_okr¦   r§   Ú	contenidoÚnombre_o_errorr«   rE   rF   Ú	faltantesÚ archivoÚ	df_actualÚmetaÚ	conectadoÚc_busqÚc_scanrB   ÚbÚ	b_digitosÚmaskÚ
+resultadosÚexactoÚ_ÚrowÚ dni_rowÚ
+nombre_rows                               r0   Úpantalla_busquedarô   Ì   s	  € Ü
+ˆ6Ð'Ð)VÐfkÕlô z‰z˜1˜c˜(Ó#H€CˆØ	ñ aÜ
+
+‰
+ÐGÐ[_Õ`÷aà	ñ 3Ü—-‘-Ø!¬×)9Ñ)9×)AÑ)AÀØ"°[ô
+ˆ ð $+§=¡=£?Œ×ÑÔ ÷
+3ô ×
+Ñ
+×
+#Ò
+#Ü
+ ‰ Ð>Ô?Øô 
+‰˜TÔ	"ñ ZÜ
+
+‰
+Ð0Ô1Ü
+
+‰
+ÐFÔGä
+
+×
+Ñ
+×
+Ñ
+Ñ
+&÷
+ñ 
+ñ xÜ—
+‘
+Ð?Ô@Ü—9‘9Ð>ÐTXØ"+Ð1FõHäŸ™Ð$CÓDñ iÙ;OÐPgÓ;hÑ8˜	 >°5÷ià Ð(ÜŸ™Ð#EÀnÐEUÐ!VÕWä4@ÀÓ4KÑ1˜˜J¨	Ø.0œ×(Ñ(Ô+Ø6@œ×(Ñ(Ô3à&4Ü),¨Y«¸;Ñ)GØ%*Ò%X¬j«l×.CÑ.CÐDWÓ.Xñ 9œ×(Ñ(Ô5ô
+ Ÿ™œ
+Ü—
+‘
+ðTà&*õ ô ×&Ñ&ØPØ˜e_Ø)¬"×*:Ñ*:×*OÑ*OÐ)PÐQô ˆGð
+ Ñ"Ü,8¸×9IÑ9IÓ9KÓ,LÑ)J 	Ø&(”× Ñ Ô#Ø.8”× Ñ Ô+à%Ÿl™lÜ!$ W×%5Ñ%5Ó%7Ó!8¸KÑ!HÜ'›\×2Ñ2Ð3FÓGñ 1”× Ñ Ô-ð
+  Ò0Ü—J‘JÐnÔoÙÜ—J‘JØGØŸ)™) I¨b¨q MÓ2ñ3Ü?BÀ9»~ÐPQÒ?Q±eÐWYñ[ôô —‘–
+ä×(Ñ(×+Ñ+ˆIÜ×#Ñ#×'Ñ'¨¸Ó;ÒA¸rˆDÜK‰Kð8ð
+ 9=¿¹ÀÈ>Ó8ZÐ7[ð \8Ø8<¿¹ÀÈaÓ8PÐQTÐ7UÐU\Ð]a×]eÑ]eÐfmÐoqÓ]rÐ\sð t6ô 7:¸)³nÀQÐ5Gð Hð
+ð #'õ
+ô  
+K‰KÐ@ÐTXÕYÜy‰yÐ1ÀtÐQcÕdÜ79×7GÑ7G×7WÑ7WÐ3W”× Ñ Ô0Ü×Ñ×/Ò/Ü—‘˜YŸ^™^¨BÓ/ÀTÐVZÕ[Ü—
+‘
+Ð-¬c°)«n¸QÐ-?¸{ÐKÔLäK‰KÐ<ÐPTÕUÜy‰yÐZØ-1Ð7IõKà&*”× Ñ Ô#Ø.0”× Ñ Ô+Ø02”× Ñ Ô-Ø38”× Ñ Ô0Ü× Ñ ×5Ò5¸Ñ:Õ5Ü—‘”
+÷uZôz 
+‰˜TÔ	"ñ 
+KÜ
+
+‰
+Ð,Ô-Ü×$Ñ$×'Ñ'¨tÐ3ˆ	Ü
+
+‰
+Ø/¹)±ÈÐ/Oð PÙ )‘Ð/CÐDÀBð
+Hà"õ 	
+ô
+ ×Ñ×#Ñ# N°BÓ7Ò=¸2ˆÙ
+ÜJ‰JÐ1°$·(±(¸7ÀBÓ2GÐ1HÐIÔJ÷
+Kô 
+×	Ñ	×	Ñ	€BØ 	€zÜ
+ ‰ ÐCÔDØô 
+‰˜TÔ	"ñ LÜ
+
+‰
+Ð3Ô4Ü
+
+‰
+ÐEÔFäŸ™ S¨! HÓ-‰ˆØ
+ñ 	Ü—}‘}ØÐ&HØ!,Ð2BôˆH÷	ð
+ ñ 	LÜK‰KÐ;ÈtÕTÜI‰Ih°D¸lÕK÷	L÷Lñ Øä‡KKð	9àõ ð 	‰Ó×ÑÓ €AÜ˜XÓ&€Ià
+‰ˆxœŸ™ 2¨R¯X©XÔ6Ó7×>Ñ>¼sÓC×GÑG×PÑPÐQRÐY^ÐchÐPÓiØ
+&‰&œ"Ÿ)™) B¨b¯h©hÔ7Ó
+8×
+?Ñ
+?ÄÓ
+D×
+HÑ
+H×
+QÑ
+QÐRSÐZ_ÐdiÐ
+QÓ
+jñ	kà
+&‰&œ2Ÿ9™9 R¨r¯x©xÔ8Ó
+9×
+@Ñ
+@ÄÓ
+E×
+IÑ
+I×
+RÑ
+RÐSTÐ[`ÐejÐ
+RÓ
+kñ	lð 
+
+&‰&œBŸI™I b°·±Ô9Ó
+:×
+AÑ
+AÄ#Ó
+F×
+JÑ
+J×
+SÑ
+SÐTUÐ\aÐfkÐ
+SÓ
+lñ 	mð 	ð D‘—‘˜rÓ"€Jð €FØ×%Ñ%Ó'ò ‰ˆˆ3Ü˜sŸw™w xÓ0Ó1ˆ Ü˜cŸg™g iÓ0Ó1×7Ñ7Ó9×?Ñ?ÓAˆ
+Ù˜' YÒ.²A¸*È»/ØˆFÙð
+ð €~œ#˜j›/¨QÒ.Ø—‘ Ñ#ˆà 
+Ð Ü! &¨"Õ-Ü	ˆZŒÜ
+
+‰
+Ð>Ô?Ü
+
+‰
+ÐBÔCÜ˜zŸ™¨qÓ1Õ2ä
+
+‰
+Ð5Ô6ä‡KKð	ð
+ ö
+ ÷cañ aú÷3ñ 3ú÷2iñ iú÷Zñ Zú÷z
+Kñ 
+Kú÷.	ñ 	ú÷
+	Lñ 	Lú÷Lñ Lúsˆ   ¬i<ÁAj	Ã2Bj#Æ
+
+jÆP!j#×B&j0ÛA kÜj=Ü0
+kÜ:0k
+Ý*ké<j ê	j êj 	êj#ê#j- ê0j: ê=k 	ëkë
+k	ëkëk! c           
+      óÐ  — t        | j                  d«      d«      }t        | j                  d«      d«      }t        | j                  d«      d«      }t        | j                  d«      «      xs t        | j                  d «      d«      }t        j                  d	t	        |«      › d
+|› d
+|› d|› d
+|› d
+d¬«       t        j                  dd¬«       t        j
+                  dddd¬«      rt
+        | j                  «       «       t        j                  d|› «       t        || «      }t        |«      r6t        j                  d«       t        j                  d«       t        |«       yy)uX   Tarjeta compacta: nombre, DNI, direcciÃ³n y agencia,
+     botÃ³n Confirmar este cliente.rÃ   ú
+Sin nombrer›   ú-Ú AGENCIAÚ
+DIRECCION_DOMÚ
+DIRECCION_NEGz
+No registradazy<div class="cliente-card">
+                <div class="cliente-card-top">
+                    <div class="avatar-circle">zq</div>
+                    <div class="cliente-nombre-wrap">
+                        <div class="cliente-nombre">a  </div>
+                    </div>
+                    <span class="badge-encontrado">Cliente encontrado</span>
+                </div>
+                <div style="padding:0.5rem 0.2rem;font-size:0.85rem;color:#475569;">
+                    <div class="dato-fila"> <b>DNI:</b> uF   </div>
+                    <div class="dato-fila"> <b>DirecciÃ³n:</b> zC</div>
+                    <div class="dato-fila"> <b>Agencia:</b> z0</div>
+                </div>
+            </div>Tr3   z$<div class="marker-confirmar"></div>zConfirmar este clienteÚbtn_confirmar_clienter~   )r6   rp   r   u    Continuar con la evaluaciÃ³n de r@   u   **Â¿No es este cliente?**N)
+r   rs   r+   r:   r   r;   Úseleccionar_clienteÚ to_dictrÊ   r   rˆ   ÚwriterÞ   ) rñ   rE   rv   ÚdniÚ agenciaÚ	direccionÚ	similaress           r0   rÝ   rÝ   Œ  sF  € ô ˜Ÿ ™  	Ó*¨LÓ9€FÜ˜Ÿ ™  Ó)¨3Ó/€CÜ˜Ÿ ™  	Ó*¨CÓ0€GÜ˜Ÿ™ Ó1Ó2Òi´h¸s¿w¹wÀÓ?WÐYhÓ6i€Iä‡KKð
+0ä09¸&Ó0AÐ/Bð C5à5;°Hð =9ð
+ :=¸ð >@Ø@I¸{ð K=Ø=D¸Ið Fð
+	ð õô$  ‡KKÐ6È$ÕOÜ 	‡yyÐ)¸tØ,°9õ>ä˜CŸK™K›MÔ*Ü‡JJÐ1°&°Ð:Ô;ä" 2 sÓ+€IÜ 
+ˆ9„~Ü
+‰ŒÜ
+
+‰
+Ð/Ô0Ü˜yÕ)ð  r/   c                 ó¾  — | j                  «       D ]Ê  \  }}t        |j                  d«      d«      }t         j                  dt
+        |«      › d|› dt        |j                  d«      d «      › dt
+        |j                  d	«      «      › d
+	d
+¬«       t         j                  d
+d
+¬«       t         j                  dd|› d
+¬«      sŒ²t        |j                  «       «       ŒÌ y)u¦   Lista de clientes parecidos/aproximados, igual al mockup: avatar
+    chico, nombre, DNI, saldo, y un botÃ³n para abrir directamente la
+    evaluaciÃ³n de ese cliente.rÃ   rö   zW<div class="similar-item">
+                    <div class="avatar-circle avatar-chica">zj</div>
+                    <div class="similar-info">
+                        <div class="similar-nombre">z=</div>
+                        <div class="similar-dni">DNI: r›   r÷   zQ</div>
+                    </div>
+                    <div class="similar-saldo">ÚSALDO_MNz</div>
+                </div>Tr3   z(<div class="marker-abrir-similar"></div>u	   Abrir â†’Úabrir_similar_©rp   r6   N)
+rÛ   r   rs   r+   r:   r   r    r;   rü   rý   )rî   Úidxrñ   rv   s       r0   rÞ   rÞ   ³  sÚ   € ð ×'Ñ'Ó)ò /‰ˆˆSÜ˜#Ÿ'™' )Ó,¨lÓ;ˆÜ
+
+‰
+ð=Ü=FÀvÓ=NÐ<Oð P5à5;°Hð =7Ü7?ÀÇ Á ÈÓ@QÐSVÓ7WÐ6Xð Y0ä09¸#¿'¹'À*Ó:MÓ0NÐ/Oð Pð
+ 
+ð #õ
+	
+ô 	
+
+‰
+Ð>ÐRVÕWÜ
+
+9‰9[¨°s°eÐ&<ÐRVÖ
+WÜ §
+¡
+£
+Õ.ñ/r/   c                 ó¼  — | t         j                  _        t         | j	                  d«      «      }t
+        t         j                  j                  |«      rdt         j                  _         n_i t         j                  _        g t         j                  _	        g t         j                  _
+        dt         j                  _
+        t        d«       t        j                  «        y )Nr›   Tr@   r]   )r+   r…   rG   r   rs   r   rC   rK   rH   rI   rJ   rM   r—   r‹   )Úfilarÿ   s     r0   rü   rü   É  s   € Ø&*„B×ÑÔ#Ü
+4—8‘8˜HÓ%Ó
+&€CÜ ”B×$Ñ$×,Ñ,¨cÔ 2Ø+/Œ×ÑÕ(à#%Œ×ÑÔ Ø%'Œ×ÑÔ"Ø!Œ×ÑÔØ,.Œ×ÑÔ)äˆ\ÔÜ‡HH…Jr/   c            
+      óÐ  — t        «       } t        j                  d¬«      5  t        j                  dt	        | j
+                  d«      «      › d«       t        j                  d«      \  }}|5  t        j                  d d¬«      r\t        t        j                  j                  t	        | j
+                  d	«      «      «       d
+t        j                  _
+        t        d
+«       d d d «       |5  t        j                  dd¬«      r°t        t        j                  j                  t	        | j
+                  d	«      «      «       i t        j                  _        g t        j                  _        g t        j                  _        d
+t        j                  _        d
+t        j                  _
+        t        d
+«       d d d «       d d d «       y # 1 sw Y   ŒäxY w# 1 sw Y   ŒxY w# 1 sw Y   y xY w)NTr£   z&Encontramos un avance guardado para **rÃ   z** con tu usuario.é   u   ðŸ”„ Continuar avance©r6   r›   Fr]   u   ðŸ†• Iniciar nuevor@   )r™   r+   rÉ   rÑ   r   rs   rt   r;   r   r…   rC   rK   r—   r   rH   rI   rJ   rM   )rœ   rx   ry   s      r0   Úprompt_borradorr
+  Ø  s`  € Ü‹	€AÜ	
+‰˜TÔ	"ñ #Ü
+
+‰
+Ð;¼HÀQÇUÁUÈ9ÓEUÓ<VÐ;WÐWiÐjÔkÜ—‘˜A“‰ˆˆBØ
+ñ 	#Üy‰yÐ0ÀdÕKÜ¤× 0Ñ 0× 8Ñ 8¼(À1Ç5Á5ÈÃ?Ó:SÔTØ38”× Ñ Ô0Ü\Ô"÷		#ð
+ ñ 		#Üy‰yÐ-À4ÕHÜ¤× 0Ñ 0× 8Ñ 8¼(À1Ç5Á5ÈÃ?Ó:SÔTØ+-”× Ñ Ô(Ø-/”× Ñ Ô*Ø')”× Ñ Ô$Ø46”× Ñ Ô1à38”× Ñ Ô0Ü\Ô"÷		#÷#ð #÷	#ð 	#ú÷
+		#ð 		#ú÷#ð #ús>   ¡AGÁ-A4GÃ!
+GÃ+CGÆ3GÇG
+	Ç	 GÇG	Ç GÇG% c            
+      óp  — t        «       } t        dddt        | j                   d«      «      › «       t	        j
+                  d«       t
+        j                  «       D ]ñ  \  }}|D cg c]  }dt        |«      › d t        |«      › ‘Œ }}t        d„ |D «       «      }|rd	nd
+}t	        j                  d
+¬«      5  t	        j                  |› d
+|› |¬«      5  t        ||«      D ]Y  \  }} t	        j                  || ¬«       |dk(  sŒ#t        j                  j                   | «      sŒCt	        j                  dd¬«       Œ[ 	 d d d «       d d d «       Œó t!        d„ t
+        j                  «       D «       «      }|rt#        d|› dd«       nt#        dd«       t	        j$                  d«       t	        j&                  d«      \  }	}
+|	5  t	        j(                  dd
+¬«      r
+t+        d«       d d d «       |
+5  t	        j(                  dd
+d¬ «      rjt        j                  j                  «       D 
+ci c]  \  }
+}|
+j-                  d«      sŒ|
+|“Œ c}}
+t        j                  d!<   t/        «        t+        d"«       d d d «       y c c}w # 1 sw Y   ŒDxY w# 1 sw Y   Œ;xY w# 1 sw Y   Œ¶xY wc c}}
+w # 1 sw Y   y xY w)#Nr>   u   EvaluaciÃ³n de CrÃ©ditoz	Cliente: rÃ   z3Marca los criterios identificados para esta visita.Úchk_rð   c              3   ó\   K  — | ]$  }t         j                  j                  |d «      –— Œ& y­w)FN)r+   r…   rs   )Ú.0Úks     r0   ú	<genexpr>z&pantalla_evaluacion.<locals>.<genexpr>ö  s#   è ø€ ÒB¸”R×%Ñ%×)Ñ)¨!¨U×3ÑBùs   ‚*,u   ðŸ”´r¹   Tr£   r|   )Úexpanded©rp   u    CalificaciÃ³n diferente a normalu0   Indicar la calificaciÃ³n a la fecha de revisiÃ³nÚcalif_revisionc           
+   3   ó¤   K  — | ]H  \  }}|D ]>  }t         j                  j                  d t         |«      › dt         |«      › d«      rd–— Œ@ ŒJ y­w)r  rð   Frm   N)r+   r…   rs   r   )r  ÚcatÚitemsÚitems       r0   r  z&pantalla_evaluacion.<locals>.<genexpr>ÿ  sY   è ø€ ò Ùˆc5¸eòØ6:Ü
+
+×
+Ñ
+×
+Ñ
+ $¤t¨C£y k°´4¸³:°,Ð ?ÀÔ
+Gô 	
+ðØ	ñùs   ‚AAu    âš ï¸ z criterio(s) marcado(s)ú
+badge-pendz Sin criterios de riesgo marcadosúbadge-okr@   r
+  õ   â¬…ï¸ Volver a buscarr  rB   u   Guardar y continuar âž¡ï¸r~   ©r6   r   Ú_criterios_snapshotr^   )r™   rX   r   rs   r+   rÊ   r
+   r  r   ÚanyrÉ   ÚexpanderÚzipÚcheckboxr…   rÆ   Úsumr\   rþ   rt   r;   r—   Ú
+startswithr   )
+rœ   Ú	categoriar  r  Úkeysr“   rS   rp   Ú
+n_marcadosrx   ry   r  Úvs
+                r0   Úpantalla_evaluacionr*  ï  sn  € Ü‹	€AÜ
+ˆ8Ð.°)¼HÀQÇUÁUÈ9ÓEUÓ<VÐ;WÐ0XÔYÜ‡JJÐDÔEä)×/Ñ/Ó1ò 	pÑˆ	5ØBGÖH¸$$”t˜I“Ð' q¬¨d«¨Ò5ÐHˆÐHÜÑB¸TÔBÓBˆÙ ‘ eˆÜ
+\‰\ Ô
+&ñ 	pÜ—‘ ˜w a¨	 {Ð3¸fÔEñ 
+pÜ!$ U¨DÓ!1ò p‘ID˜#Ü—K‘K ¨#Õ.ØÐAÓAÄb×FVÑFV×FZÑFZÐ[^ÕF_ÜŸ
+™
+Ð&XÐ^nÖoñ p÷
+p÷	pð 	pð		pô ñ Ü)×/Ñ/Ó1ôó €Jñ Ü
+ ˜
+|Ð#:Ð;¸\ÕJä
+Ð0°*Ô=ä‡HHˆR„LÜ
+Z‰Z˜‹]F€BˆØ	
+ñ Ü
+
+9‰9Ð-À4Õ
+HÜÔ÷ð 
+ñ Ü
+
+9‰9Ð1ÀtÐR[Õ
+\ô "$×!1Ñ!1×!7Ñ!7Ó!9÷7Ù˜˜A¸Q¿\¹\È&Õ=Q1‘ó7ŒB×ÑÐ2Ñ3ô 
+ÔÜŒM÷ð ùò1 I÷
+pñ 
+pú÷	pñ 	pú÷$ð üó7÷	ð úsf   Á&!I;Â7J
+Ã/J  ÄJ  Ä$J  Ä>J
+Ç#JÇ/:J,È)J&ÉJ&É*J,Ê J
+
+ÊJ
+Ê
+J	ÊJ# Ê&J,Ê,J5 c            
+      óâ   — t        «       } t        ddd«       t        j                  dt	        | j
+                  d«      «      › dt	        | j
+                  d «      «      › dt	        | j
+                  d	«      «      › d
+ d
+¬«       t        j                  d
+¬
+«      5  t        j                  d«       dt	        | j
+                  d	«      d«      fdt	        | j
+                  d«      d«      fdt	        | j
+                  d«      d«      fdt        | j
+                  d«      «      fdt        | j
+                  d«      «      fdt	        | j
+                  d«      d«      fdt	        | j
+                  d«      d«      fg }dj                  d„ |D «       «      }t        j                  d|› d d
+¬«       t        | j
+                  d«      «      }t        | j
+                  d«      «      }|d!kD  r:t        d"t        d#d$||z
+  z
+  «      «      }t        j                  ||d%z  d&›d'¬(«       d d d «       t        j                  d)«      5  d*| j
+                  d+«      fd,| j
+                  d-«      fd.| j
+                  d/«      fd0| j
+                  d1«      fd2| j
+                  d3«      fd4| j
+                  d5«      fd6| j
+                  d7«      fd8| j
+                  d9«      fg}|D ]*  \  } }t        j                  d:| › d;t	        |d«      › «       Œ, 	 d d d «       t        j                  d«       t        j                  d<d
+¬«       t        j                  d=«      \  }	}
+|	5  t        j                   d>d
+¬?«      r
+t#        d@«       d d d «       |
+5  t        j                   dAd
+dB¬C«      rt%        «        t#        dD«       d d d «       t        j                  d d
+¬«       y # 1 sw Y   Œ«xY w# 1 sw Y   Œ×xY w# 1 sw Y   ŒrxY w# 1 sw Y   ŒFxY w)ENrc   u   Cliente y CrÃ©ditoz!Ficha de identidad (solo lectura)zA<div class="banner-cliente">
+                <div class="nombre">rÃ   z-</div>
+                <div class="dni">DNI: r›   u    Â· Cuenta: rÁ   z</div>
+            </div>Tr3   r£   u   **InformaciÃ³n del crÃ©dito**u
+   NÂ° de cuentar÷   u   Tipo de crÃ©ditoÚ
+PRODUCTO_CAJAu
+   CalificaciÃ³nÚCATEG_RESULTANTEzImporte desembolsadoÚIMPDESEMB_MNzSaldo actualr  zFecha de desembolsoÚFECDESu   Ãšltimo pagoÚ
+FECHA_UTLPAGOr@   c              3   ó4   K  — | ]  \  }}d |› d|› d–— Œ y­w)z#<div class="chip"><div class="lbl">z</div><div class="val">z</div></div>Nr.   )r  ÚlblÚvals      r0   r  z!pantalla_ficha.<locals>.<genexpr>0  s-   è ø€ ò 
+áSð 2°#°Ð6MÈcÈUÐR^Ô_ñ
+ùs   ‚z<div class="info-credito">r9   r   ç        g      ð?rm   éd   ú.0fz% pagado del importe original)Útextu   â„¹ï¸ InformaciÃ³n adicionalÚ Agenciarø   zAnalista vigenteÚANALISTAzAnalista evaluadorÚ
+ANALISTA_EVALzTipo SBSÚTIPO_SBSzRubro / ActividadÚACTIVIDAD_ECONu   SegmentaciÃ³n MYPEÚSEGMENTACION_MYPEz
+Cuenta avalÚ
+CUENTA_AVALu   Estado del crÃ©ditoÚESTADO_CREDITOr»   z:** ú<div class="nav-pie">r
+  u   â¬…ï¸ Criterior  r]   u   Ir a la visita âž¡ï¸r~   r  r_   )r™   rX   r+   r:   r   rs   rÉ   r    rÒ   r   ÚmaxÚminÚprogressr!  rþ   rt   r;   r—   r   )
+rœ   ÚchipsÚ
+chips_htmlÚimpÚsaldoÚ	usado_pctrÈ   r’   r3  rx   ry   s
+              r0   Úpantalla_ficharI    sŽ  € Ü‹	€AÜ
+ˆ6Ð'Ð)LÔMä‡KKð
+%Ü%-¨a¯e©e°IÓ.>Ó%?Ð$@ð A'Ü'/°·±°h³Ó'@Ð&AÀÌhÐWX×W\ÑW\Ð]dÓWeÓNfÐMgð hð	ð õ
+ô 
+‰˜TÔ	"ñ ]Ü
+
+‰
+Ð3Ô4à
+œh q§u¡u¨W£~°sÓ;Ð<Ø
+¤¨!¯%©%°Ó*@À#Ó!FÐGØ
+œh q§u¡uÐ-?Ó'@À#ÓFÐGØ
+#¤Y¨q¯u©u°^Ó/DÓ%EÐFØ
+œY q§u¡u¨ZÓ'8Ó9Ð:Ø
+"¤H¨Q¯U©U°8«_¸cÓ$BÐCØ
+œX a§e¡e¨OÓ&<¸cÓBÐCð
+ˆð —W‘Wñ 
+à!ô
+ó 
+ˆ
+ô 	
+
+‰
+Ð0°°¸FÐCÐW[Õ\ä˜Ÿ™˜~Ó.Ó/ˆÜ˜1Ÿ5™5 Ó,Ó-ˆØ
+Š7Ü˜C¤ S¨!¨u°s©{Ñ*;Ó!<Ó=ˆIÜK‰K˜	¨9°S©=¸Ð*=Ð=ZÐ([Õ\÷+]ô. 
+‰Ð4Ó	5ñ ;à
+˜Ÿ™˜iÓ(Ð)Ð,>ÀÇÁÀjÓ@QÐ+RØ
+! 1§5¡5¨Ó#9Ð:¸ZÈÏÉÈzÓIZÐ<[Ø
+  !§%¡%Ð(8Ó"9Ð:Ð=QÐST×SXÑSXÐYlÓSmÐ<nØ
+˜AŸE™E -Ó0Ð1Ð4IÈ1Ï5É5ÐQaÓKbÐ3cð	
+ˆð ò 	;‰JˆE3ÜH‰Hr˜%˜ ¤X¨c°3Ó%7Ð$8Ð9Õ:ñ	;÷;ô  ‡HHˆR„LÜ‡KKÐ'¸4Õ@Ü
+Z‰Z˜‹]F€BˆØ	
+ñ Ü
+
+9‰9Ð&¸DÕ
+AÜÔ÷ð 
+ñ Ü
+
+9‰9Ð,À$ÈYÕ
+WÜÔÜÔ÷ ô  ‡KK¨DÖ1÷W]ñ ]ú÷.;ð ;ú÷ð ú÷ð ús2   ÂF O È4CO
+Í#OÍ2.O%Ï O
+ Ï
+O ÏO" Ï%O. ) u   ðŸ’¼Ú Negociorú   ÚDISTRITO_NEGÚ
+PROVINCIA_NEGÚDEPARTAMENTO_NEGT) u   ðŸ¢zCentro laboralNNNNF) u   ðŸ§¾ÚAvalNNNNF) u   ðŸ Ú	Domiciliorù   ÚDISTRITO_DOMÚ
+PROVINCIA_DOMÚDEPARTAMENTO_DOMF)Ú negocioÚ laboralÚavalÚ	domicilioc            	      óæ  — t        «       } t        ddd«       t        j                  t        D cg c]  }t        |   d   › dt        |   d   › ‘Œ c}«      }t
+        |t        «      D ]  \  }}|5  t
+        || «       d d d «       Œ t        j                  d «       t        j                  dd	¬
+«       t        j                  d
+«      \  }}|5  t        j                  dd	d
+¬«      r
+t        d«       d d d «       |5  t        j                  dd	dd¬«      rt        «        t        d«       d d d «       t        j                  dd	¬
+«       y c c}w # 1 sw Y   ŒðxY w# 1 sw Y   ŒkxY w# 1 sw Y   Œ>xY w)Nre   zNueva VisitauL   VerificaciÃ³n: negocio (obligatorio), laboral, aval y domicilio (opcionales)r   r|   rm   r@   r@  Tr3   r
+  u   â¬…ï¸ ClienteÚ	back_ubicr´   r^   u   Ir al reporte âž¡ï¸r~   Ú	next_ubicr©   r`   r9   )
+r™   rX   r+   ÚtabsÚTIPOS_VISITAr"  Ú
+render_visitarþ   r:   rt   r;   r—   r   ) rœ   ÚtrZ  ÚtabÚclaverx   ry   s           r0   Úpantalla_ubicacionr`  \  s=  € Ü‹	€AÜ
+ˆ6>Ð#qÔrä
+
+7‰7Ì,ÖWÀQ”| A‘ qÑ)Ð*¨!¬L¸©O¸AÑ,>Ð+?Ò@ÒWÓ
+X€DÜ˜$¤Ó-ò $‰
+ˆˆUØ
+ñ 	$Ü˜% Ô#÷	$ð 	$ð$ô  ‡HHˆR„LÜ‡KKÐ'¸4Õ@Ü
+Z‰Z˜‹]F€BˆØ	
+ñ Ü
+
+9‰9Ð%¸4À[Õ
+QÜŒM÷ð 
+ñ Ü
+
+9‰9Ð+ÀÈIÐ[fÕ
+gÜÔÜŒO÷ ô  ‡KK¨DÖ1ùò X÷	$ð 	$ú÷ð ú÷ð ús)   ¯"E
+Á0
+EÃ
+$EÃ;/E'ÅE	ÅE$ Å'E0 c                 óè  — t         |    \   }}}}}} }t        j                  j                  }	|	j	                  | i «      }
+d| › t        j                  vr,dt        j                  d| › <   dt        j                  d| › <   t        j
+                  d¬«      5  t        j                  d«       |
+j	                  d«      xs |rt        |j	                  |«      «      nd }
+t        j                  d|
+d	| › ¬
+«      }t        j                  d
+«      \  }
+}|
+5  |
+j	                  d«      xs |rt        |j	                  |«      «      nd }t        j                  d
+|d| › ¬
+«      }|
+j	                  d«      xs |rt        |j	                  |«      «      nd }t        j                  d|d| › ¬
+«      }d d d «       |5  |
+j	                  d«      xs | rt        |j	                  | «      «      nd }t        j                  d|d| › ¬
+«      }t        j                  d|
+j	                  dd «      d| › ¬
+«      }d d d «       t        j                  d«       t        «       }t        j                  d|
+j	                  dd «      d| › ¬
+«      }t        j                  d|
+j	                  dd «      d| › ¬
+«      }| dk(  r§t        j                  d «       d!gt        z   }d"}t        j                  j	                  d#«      t        v r)t        j                  t        j                  d#   «      d$z   }t        j                  d%||d&| › d'¬(«      }|t        v r|t        j                  d#<   |rd)nd*}t        j                  d+|› d,«       t        j                  d-«       t        j                   d.d/| › ¬0«      }|€,|
+j	                  d1«      rt        j"                  |
+d1   d2d3¬4«       |r(|€&|
+j	                  d1«      st        j$                  d5«       t        j                  j	                  d6| › |
+j	                  d7«      «      }t        j                  j	                  d8| › |
+j	                  d9«      «      }t        j                  j	                  d:| › |
+j	                  d;«      «      } t        j                  j	                  d| › «      r¯|r|s«	 d"d<lm}!  |!d=| › ¬0«      }"|"rd>|"v r}|"d>   d?   }|"d>   d@   }|"d>   j	                  dA«      } |t        j                  d6| › <   |t        j                  d8| › <   | t        j                  d:| › <   dBt        j                  d| › <   nt        j*                  dC«       t        j                  dE«       |r]|r[|dF›dG|dF›}#| r
+|#dH| dI›dJz
+  }#t        j.                  |#«       t        j0                  t3        j4                  |g|gdKœ«      dLdM¬N«       n’t        j                  j	                  d| › «      rt        j*                  dO«       nZt        j$                  dD«       t        j6                  dPdQ| › d¬R«      r*dt        j                  d| › <   t        j8                  «        |d uxs t;        |
+j	                  d1«      «      }$|$xr
+ |d uxr |d u}%t        j6                  dS|› dT| › ddU|% ¬V«      rŸ||j=                  dW«      |j=                  dX«      ||||| ||j?                  «       n|
+j	                  d1«      dYœ
+t        j                  j                  | <   tA        «        t        j.                  dZ|› d[|j=                  d\«      › d]«       |%st        j                  d^«       | |	v r
+tC        d_d`«       ntC        dadb«       d d d «       y # 1 sw Y   ŒëxY w# 1 sw Y   ŒvxY w# t,        $ r/ t        j$                  dD«       dBt        j                  d| › <   Y Œ‚w xY w# 1 sw Y   y xY w)cNÚ
+gps_iniciado_TÚsolicitar_gps_r£   u   **Paso 3 Â· Datos del lugar**r  r@   u
+   DirecciÃ³nÚdir_)r    rp   r
+  ÚdistritoÚDistritoÚdist_Ú	provinciaÚ	ProvinciaÚprov_ÚdepartamentoÚDepartamentoÚdepto_Ú
+ReferenciaÚ
+referenciaÚref_u   **Paso 4 Â· Observaciones**zEntrevista conÚentrevista_conÚ
+entrevista_Ú
+ComentariosÚ
+comentariosÚcomentarios_rS  z**Cliente visitado**u   â€” Selecciona â€”r   rM   rm   zResultado de la visitaÚcv_r#   )r¾   rp   r¢   u#   Foto de verificaciÃ³n (obligatoria)u    Foto de verificaciÃ³n (opcional)u    **ðŸ“· r»   ug   La ubicaciÃ³n GPS se solicita automÃ¡ticamente al entrar. Tome tambiÃ©n la fotografÃ­a de verificaciÃ³nu    ðŸ“· Tomar foto de verificaciÃ³nÚ camara_r  Ú
+foto_byteszFoto guardada previamenteéÈ   )rÊ   ÚwidthuB   âš  Esta secciÃ³n requiere foto de verificaciÃ³n antes de guardar.Úlat_ÚlatÚlon_ÚlonÚ
+precision_Ú	precision)Úget_geolocationÚgeo_ÚcoordsÚlatitudeÚ	longitudeÚaccuracyFu\   ðŸ“¡ Obteniendo ubicaciÃ³n del dispositivo... acepta el permiso si el navegador lo solicita.r>   u   **UbicaciÃ³n:**z.6fr°   u    (Â±r6  z m))r|  r~  é   é    )ÚzoomÚheightu.   ðŸ“¡ Solicitando ubicaciÃ³n del dispositivo...u   ðŸ“ Reintentar ubicaciÃ³nÚ
+retry_gps_r  u   ðŸ’¾ Guardar visita de Úguardar_r~   )rp   r6   r   Údisabledz%d/%m/%Yz%H:%M:%S)
+r  re  rh  rk  ro  r«   Úhorarq  rt  r|  r~  r€  rx  u   âœ… Visita de u    guardada â€” z%d/%m/%Y %H:%M:%Sõ
+    (hora PerÃº)u8   Se requiere foto y ubicaciÃ³n GPS para guardar la visitaÚ
+Registradar  Ú	Pendienter  )"r[  r+   r…   rH   rs   rÉ   r:   r   rÆ   rt   r   Ú	text_arear
+   r¾   Ú	selectboxrÊ   Úcamera_inputÚimagerÑ   Ústreamlit_js_evalr  rÈ   r-   Ú successÚmaprÖ   Ú	DataFramer;   r‹   ÚboolrÎ   rÐ   r   r\   )&r_  rœ   rS   ÚetiquetaÚk_dirÚk_distÚk_provÚ k_deptoÚ
+obligatoriarH   ÚdataÚ	valor_dirr  Úcc1Úcc2Ú
+valor_distre  Ú
+valor_provrh  Ú
+valor_deptork  ro  Ú ahora_vrq  rt  Ú
+opciones_cvÚidx_cvÚ	opcion_cvÚ
+etiqueta_fotoÚ
+foto_finalr|  r~  r€  r  ÚlocÚ
+ubicacion_txtÚhay_fotoÚ
+puede_guardars&                                         r0   r\  r\  r  sƒ   € ÜCOÐPUÑCVÑ@€Eˆ8U˜F F¨G°[Ü×Ñ×&Ñ&€GØ
+;‰;u˜bÓ
+!€Dð 
+ugÐ ¤b×&6Ñ&6Ñ 6Ø59Œ×	Ñ	˜M¨%¨Ð1Ñ	2Ø6:Œ×	Ñ	˜N¨5¨'Ð2Ñ	3ä	
+‰˜TÔ	"ñ G-ä
+
+‰
+Ð3Ô4Ø—H‘H˜[Ó)ÒVÉ¬h°q·u±u¸U³|Ô.DÐSUˆ	Ü—M‘M ,°iÀtÈEÈ7À^ÔTˆ	Ü—:‘:˜a“=‰ˆˆSØ
+ñ 	ZØŸ™ *Ó-Ò\ÉV´(¸1¿5¹5À»=Ô2IÐY[ˆJÜ—}‘} Z°zÈÈuÈgÀÔWˆHØŸ™ +Ó.Ò]Éf´8¸A¿E¹EÀ&»MÔ3JÐZ\ˆJÜŸ
+™
+ k¸È5ÐQVÐPWÈÔYˆI÷		Zð
+ ñ 	kØŸ(™( >Ó2ÒcÑSZ´xÀÇÁÀgÃÔ7OÐ`bˆKÜŸ=™=¨¸{ÐRXÐY^ÐX_ÐP`ÔaˆLÜŸ™ |¸4¿8¹8ÀLÐRTÓ;UÐ]aÐbgÐahÐ[iÔjˆJ÷ 	kô 	
+
+‰
+Ð1Ô2Ü“,ˆ ÜŸ™Ð'7¸t¿x¹xÐHXÐZ\Ó?]ÐepÐqvÐpwÐcxÔyˆÜ—l‘l =¸¿¹ÀÐPRÓ8SÐ[gÐhmÐgnÐYoÔpˆ
+ð IÒ
+ÜK‰KÐ.Ô/Ø/Ð0Ô3LÑLˆKØˆFÜ×Ñ×#Ñ#Ð$6Ó7Ô;TÑTÜ2×8Ñ8¼×9IÑ9IÐJ\Ñ9]Ó^ÐabÑbÜŸ™Ø(¨+¸VØ˜%˜M°KôˆIð Ô5Ñ5Ø7@”× Ñ Ð!3Ñ4ñ BMÑ=ÐRtˆ
+Ü
+
+‰
+g˜m˜_¨BÐ/Ô0Ü
+
+‰
+Ð|Ô}ä—_‘_Ø*ØugÐ
+ô
+ˆ
+ð Ð
+ $§(¡(¨<Ô"8ÜH‰HT˜,Ñ'Ð1LÐTWÕXÙ
+˜:Ð-°d·h±h¸|Ô6LÜJ‰JÐ[Ô\ô ×Ñ×"Ñ"Ø5'ˆNØH‰HU‹Oó
+ˆô
+ ×Ñ×"Ñ"Ø5'ˆNØH‰HU‹Oó
+ˆô
+ ×$Ñ$×(Ñ(Ø˜˜ Ð ØH‰H[Ó!ó
+ˆ	ô ×
+Ñ
+×
+Ñ
+ .°° Ð 8Ô
+9Á3É3ð
+CÝ=Ù%¨D°° ¨.Ô9Ù˜8 s™?Ø˜h™-¨
+Ñ3CØ˜h™-¨
+Ñ4CØ # H¡
+× 1Ñ 1°*Ó =Ià7:”B×$Ñ$ t¨E¨7 ^Ñ4Ø7:”B×$Ñ$ t¨E¨7 ^Ñ4Ø=F”B×$Ñ$ z°%°Ð%9Ñ:àAF”B×$Ñ$ ~°e°WÐ%=Ò>ô —G‘GÐzÔ{ô
+ 	
+
+‰
+Ð%Ô&Ù
+‘3Ø" 3˜i r¨#¨c¨Ð3ˆMÙØ 4¨	°# °cÐ!:Ñ:
+ÜJ‰J}Ô%ÜF‰FÜ—‘ c U°C°5Ñ9Ó:ØØö 
+ô
+ ×
+Ñ
+×
+!Ñ
+! N°5°'Ð":Ô
+;Ü
+W‰WÐEÕ
+Fä
+
+:‰:hÔ
+Üi‰iÐ4¸JÀuÀgÐ:NÐdhÕiØ<@Œr×Ñ .°° Ð 8Ñ9Üx‰xŒzð 
+˜dÐ"ò 
+,ÜD—H‘H˜\Ó*Ó+ð 	ð 
+ò 
+ Ø˜4ò
+ à˜4ð  	ô
+ 9‰9Ð.¨x¨jÐ9ÀÈ%ÈÐ?QØ)-°IÈMÐHYõ[ð '°HÈ9Ø ,¸JØ ×)Ñ)¨*Ó5¸w×?OÑ?OÐPZÓ?[Ø"0ÀØ 3°YØ7AÐ7M˜j×1Ñ1Ô3ÐSW×S[ÑS[Ð\hÓSiñ
+ /ŒB×Ñ×$Ñ$ UÑ+ô 
+ÔÜJ‰J˜¨ z°À ×@PÑ@PÐQdÓ@eÐ?fÐfsÐtÔuÙÜJ‰JÐQÔRà
+GÑ
+Ü, 
+Õ+ä+˜|Ô,÷OG-ð G-÷	Zñ 	Zú÷
+	kñ 	kûôR ò 
+CÜ—
+‘
+˜8Ô$Ø=B”× Ñ  >°%°Ð!9Ô:ð
+Cú÷iG-ð G-úsf   ÂA<_(ÄB^Æ*
+_(Æ4A8^ È,J
+_(Ò8B*^-Õ"H(_(Þ^	Þ_(Þ ^*	Þ%_(Þ-4_%ß!_(ß$_%ß%_(ß(_1 c                  ó¾  ‡%— t        «       } t        ddd«       t        j                  j                  Š%g d¢}t
+        ˆ%fd„|D «       «      }t        j                  d¬ «      5  t        j                  d|› d	t        |«      › d
+«       t        j                  d
+«      }t        ||«      D ]P  \  }\  }}} |‰%v }|rdn| rd
+nd}	|rdn| rdnd}
+|j                  d|rdnd› d|rdn| rdnd› d|› d|	› d|
+› d
+d¬«       ŒR 	 d d d «       d‰%vrt        j                  d«       t        j                  j                  d «      xsD t        j                  j                  «       D 
+ci c]  \  }
+}|
+j                  d!«      sŒ|
+|“Œ c}}
+}
+t        |
+t        j                  j                  d"d#«      «      }d#}d$D 
+ci c]#  }
+|
+t        j                  j                  |
+d%«      “Œ% }}
+t!        |«      }t        j                  j                  d&d#«      }t        j                  d¬ «      5  t        j                  d'«       t        j"                  d(t%        | j                  d)«      «      › «       t        j"                  d*t%        | j                  d+«      «      › «       t        j"                  d,t%        | j                  d-«      «      › «       t        j"                  d.t%        | j                  d/«      «      › «       t        j"                  d0t%        | j                  d1«      «      › «       t        j"                  d2t%        | j                  d3«      «      › «       t        j"                  d4t        j                  j&                  › «       t        j"                  d5t)        «       j+                  d6«      › d7«       t        j"                  d8|xs d9› «       t        j"                  d:t-        |d;   «      › «       t        j                  d<«       t        j                  d=«       |r#|D ]  }t        j                  d>|› d?d¬«       Œ nt        j.                  d@«       d d d «       t        j                  d¬ «      5  t        j                  dA«       t        j.                  dB«       dCt1        | j                  d-«      «      › dDt)        «       j+                  dE«      › }t        j2                  dF«      5  t5        | |||‰%t        j                  j6                  t        j                  j8                  t        j                  j&                  ||«
+      }t;        | |||‰%t        j                  j6                  t        j                  j8                  t        j                  j&                  ||«
+      }d d d «       |dGz   }|dHz   }dI}dJ}t        j                  dK«      \  }}|5  t        j<                  dLj?                  «       ||ddMdN¬O«       }d d d «       |5  t        j<                  dPj?                  «       ||ddMdQ¬O«       }d d d «       r—tA        |j?                  «       «      }tC        «        tE        t        j                  j&                  | dR|dSjG                  |«      ||j                  dT«      xs |j                  dU«      «       \  } }!| |!|ft        j                  dV<   r—tA        |j?                  «       «      }tC        «        tE        t        j                  j&                  | dW|dSjG                  |«      ||j                  dT«      xs |j                  dU«      «       \  } }!| |!|ft        j                  dV<   t        j                  j                  dV«      rèt        j                  dV   \  } }!}t%        | j                  dX«      dY«      }"t        jH                  dZ| › d[|"› d\|!› d] «       tK        |tL        «      r‡|j                  dT«      rt        j                  d^|dT   › d_«       n-|j                  dU«      rt        j.                  d`|dU   › da«       |j                  db«      rt        j.                  dc|db   › «       d d d «       t        jN                  dd«      5  tQ        «       }#t        |#«      r(t        jR                  |#jU                  de«      dd¬f«       nt        j.                  dg«       d d d «       t        j"                  d#«       t        j                  dhd¬«       t        j                  dK«      \  }}|5  t        jV                  did¬j«      r
+tY        dk«       d d d «       |5  t        jV                  dld¬j«      rÇt%        | j                  dm«      «      }$t[        t        j                  j&                  |$«       d t        j                  _.        i t        j                  _        g t        j                  _        g t        j                  _        d t        j                  _/        d#t        j                  _0        tY        dn«       d d d «       t        j                  d?d¬«       y # 1 sw Y   	ŒfxY wc c}}
+w c c}
+w # 1 sw Y   Œ#xY w# 1 sw Y   ŒâxY w# 1 sw Y   Œ”xY w# 1 sw Y   ŒlxY w# 1 sw Y   Œ8xY w# 1 sw Y   ŒÕxY w# 1 sw Y   ŒqxY w# 1 sw Y   Œ”xY w)oNrg   u   GeneraciÃ³n de Reporteu(   RevisiÃ³n final y descarga del documento))rS  rJ  T)rT  Ú LaboralF)rU  rN  F)rV  rO  Fc              3   ó4   •K  — | ]  \  }}}|‰v sŒd –— Œ y­w)rm   Nr.   )r  r  rð   rH   s      €r0   r  z#pantalla_reporte.<locals>.<genexpr>  s   øè ø€ Ò?™'˜!˜Q °!°w²,”AÑ?ùs   ƒ
+‘ Tr£   u   **Resumen de calidad** â€” z de z visitas registradasé   r  r  z
+badge-warnzFoto capturadazFalta (obligatoria)ÚOpcionalzR<div style="text-align:center;padding:0.5rem 0.2rem;border-radius:10px;background:z #F0FDF4z #FEF2F2z;;">
+                        <div style="font-size:1.3rem;">u   âœ…r>   u   âž–zN</div>
+                        <div style="font-weight:700;font-size:0.8rem;">z2</div>
+                        <span class="badge z" style="font-size:0.65rem;">z"</span>
+                    </div>r3   rS  u„   AcciÃ³n requerida â€” falta la visita obligatoria al **Negocio**. Puedes generar el reporte igual; quedarÃ¡ indicado como pendiente.r  r  r  r@   )Úingreso_principalÚotros_ingresosÚ
+op_alquilerÚop_serviciosÚ
+op_transporteÚ
+op_mercaderiaÚ
+op_publicidadÚop_otrosÚfam_alimentacionÚfam_viviendaÚ
+fam_serviciosÚ
+fam_educacionÚ	fam_saludÚ	fam_otrosr4  rM   u   **Resumen de la evaluaciÃ³n**z**Cuenta cliente:** rÁ   u   **NÂ° de operaciÃ³n:** ÚBCOPERz**Nombre del cliente:** rÃ   u
+   **MÃ³dulo:** ÚMODULOz**Analista vigente:** r9  z**Analista evaluador:** r:  z
+**Auditor:** z**Fecha de visita:** z%d/%m/%Y %H:%Mr  z**Cliente visitado:** u   â€”z**Utilidad neta:** Ú
+utilidad_netaz---z**Criterio seleccionado**:u‘   <div style="background:#FEF2F2;border-left:4px solid #C8102E;border-radius:6px;padding:0.3rem 0.6rem;margin:0.25rem 0;font-size:0.85rem;">âœ”ï¸ r9   z%Ninguno marcado en la vista Criterio.z**Generar y descargar reporte**uc   Disponible en Word (.docx) y PDF. Se guarda automÃ¡ticamente en la carpeta de reportes configurada.Ú Visita_rð   z
+%Y%m%d_%H%MzPreparando archivos...z.docxz.pdfzGapplication/vnd.openxmlformats-officedocument.wordprocessingml.documentzapplication/pdfr
+  u   ðŸ“ Generar y descargar Wordr~   Ú dl_word)r¡  Ú	file_nameÚmimer6   r   rp   u   ðŸ“• Generar y descargar PDFÚdl_pdfÚWordz; ÚonlineÚlocalÚ
+ultimo_conteoÚPDFrø   r÷   u   âœ… Descargado. Visita NÂ° z en agencia **u   ** (NÂ° z
+ general).u.   â˜ï¸ **Subido a OneDrive:** [Abrir archivo](ú)u   ðŸ“ Copia local: `ú`rÍ   u   âš  u+   ðŸ—‚ï¸ Ver historial de reportes generadosrµ   r¶   u'   AÃºn no se ha generado ningÃºn reporte.r@  u
+   â¬…ï¸ Visitar  r_   u   ðŸ Terminar y volver a buscarr›   rB   )1r™   rX   r+   r…   rH   r$  rÉ   r:   rˆ   rt   r"  rÑ   rs   r  r%  r   r   rþ   r   rC   r   rÎ   r    rÊ   r   rÌ   r   rI   rJ   r   Údownload_buttonrÐ   r   r   r   rÒ   r—  Ú
+isinstanceÚdictr!  r   rÓ   Útailr;   r—   r   rG   rL   rM   )&rœ   Ú	seccionesÚ	completasr   Úcolr_  r›  r   ÚokÚ
+badge_claserZ   r  r)  Úcriterios_dictÚ
+criterios_txtÚobservacion_criterioÚingÚcalcrM   ÚctÚ
+base_nombreÚbuf_wordÚ buf_pdfÚ
+nombre_wordÚ
+nombre_pdfÚ	mime_wordÚmime_pdfrx   ry   Údescargado_wordÚdescargado_pdfÚguardadoÚn_agÚn_genÚ
+agencia_txtÚhistÚc_dnirH   s&                                        @r0   Úpantalla_reporterò     sg	  ø€ Ü‹	€AÜ
+ˆ6Ð+Ð-WÔXä×Ñ×&Ñ&€GòM€IäÓ? YÔ?Ó?€Iä	
+‰˜TÔ	"ñ Ü
+
+‰
+Ð1°)°¸DÄÀYÃÐ@PÐPdÐeÔfÜz‰z˜!‹}ˆÜ36°t¸YÓ3Gò 
+	Ñ/ˆCÑ/%˜ ;Ø˜'Ð!ˆBÙ(*™*Á±ÐR^ˆKÙ(*Ñ$É+Ñ1FÐ[eˆEØL‰LØfÑtvÑgpð  }Fð  gGð G8ÙAC¹ÑVaÉ(ÐglÐ7nð oHØHPÀzð R,Ø,7¨=Ð8UÐV[ÐU\ð ]ð ð
+ #'ð
+ 
+õ  
+ñ	
+	÷ ð  ˜ Ñ Ü
+
+‰
+ð  Zô  	[ô ×%Ñ%×)Ñ)Ð*?Ó@ò YÜ')×'7Ñ'7×'=Ñ'=Ó'?×X™t˜q !À1Ç<Á<ÐPVÕCWa˜‘dÓXð ä1°.Ä"×BRÑBR×BVÑBVÐWgÐikÓBlÓm€MØÐð5ö 
+ ¨qˆ1Œb×Ñ×"Ñ" 1 cÓ*Ñ
+*ð 
+ €Cð 
+ ô
+ ˜cÓ
+"€DÜ×'Ñ'×+Ñ+Ð,>ÀÓCÐä	
+‰˜TÔ	"ñ @Ü
+
+‰
+Ð3Ô4Ü
+‰Ð'¬°·±°w³Ó(@Ð'AÐBÔCÜ
+‰Ð*¬8°A·E±E¸(³OÓ+DÐ*EÐFÔGÜ
+‰Ð+¬H°Q·U±U¸9Ó5EÓ,FÐ+GÐHÔIÜ
+‰=¤¨!¯%©%°«/Ó!:Ð ;Ð<Ô=Ü
+‰Ð)¬(°1·5±5¸Ó3DÓ*EÐ)FÐGÔHÜ
+‰Ð+¬H°Q·U±U¸?Ó5KÓ,LÐ+MÐNÔOÜ
+‰=¤×!1Ñ!1×!9Ñ!9Ð :Ð;Ô<Ü
+‰Ð(¬«×)>Ñ)>Ð?OÓ)PÐ(QÐQ^Ð_Ô`Ü
+‰Ð)Ð*:Ò*C¸eÐ)DÐEÔFÜ
+‰Ð&¤y°°oÑ1FÓ'GÐ&HÐIÔJä
+
+‰
+EÔÜ
+
+‰
+Ð0Ô1Ù
+Ø#ò 
+Ü—
+‘
+ðà ˜T ð)ð '+ö	ñ
+ô 
+J‰JÐ>Ô?÷1@ô4 
+‰˜TÔ	"ñ =;Ü
+
+‰
+Ð5Ô6Ü
+
+‰
+ÐxÔyà¤ Q§U¡U¨9Ó%5Ó 6Ð7°q¼»×9NÑ9NÈ}Ó9]Ð8^Ð_ˆ
+ô Z‰ZÐ0Ó
+1ñ 	eÜ# A }°d¸CÀÜ$&×$4Ñ$4×$>Ñ$>Ä×@PÑ@P×@TÑ@TÜ$&×$4Ñ$4×$<Ñ$<Ð>NÐPdófˆHô # 1 m°T¸3À Ü#%×#3Ñ#3×#=Ñ#=¼r×?OÑ?O×?SÑ?SÜ#%×#3Ñ#3×#;Ñ#;Ð=MÐOcóeˆG÷		eð " GÑ+ˆ
+Ø! FÑ*ˆ
+Ø_ˆ	Ø'ˆä—‘˜A“‰ˆˆBØ
+ñ 	Ü ×0Ñ0Ø/Ø×&Ñ&Ó(°KÀiØ$(¨y¸iô ˆO÷	ð ñ 	Ü×/Ñ/Ø.Ø×%Ñ%Ó'°:ÀHØ$(¨y¸hô ˆN÷	ñ Ü1°+¸x×?PÑ?PÓ?RÓSˆHÜ*Ô,Ü-¬b×.>Ñ.>×.FÑ.FÈÈ6ÐS^Ø/3¯y©y¸Ó/GÐIYØ/7¯|©|¸HÓ/EÒ/^ÈÏÉÐV]ÓI^ó`‰KˆD%ð 26°u¸hÐ0GŒB×Ñ˜_Ñ-á
+Ü1°*¸g×>NÑ>NÓ>PÓQˆHÜ*Ô,Ü-¬b×.>Ñ.>×.FÑ.FÈÈ5ÐR\Ø/3¯y©y¸Ó/GÐIYØ/7¯|©|¸HÓ/EÒ/^ÈÏÉÐV]ÓI^ó`‰KˆD%ð 26°u¸hÐ0GŒB×Ñ˜_Ñ-ä
+
+×
+Ñ
+×
+Ñ
+ Ô
+0Ü$&×$4Ñ$4°_Ñ$EÑ!ˆD%˜Ü" 1§5¡5¨Ó#3°SÓ9ˆKÜJ‰JÐ4°T°F¸.ÈÈ
+ÐU]Ð^cÐ]dÐdnÐoÔpÜ˜(¤DÔ)Ø—<‘< Ô)Ü—K‘KÐ"PÐQYÐZbÑQcÐPdÐdeÐ fÕgØ—\‘\ 'Ô*Ü—J‘JÐ!4°X¸gÑ5FÐ4GÀqÐIÔJØ—<‘<  Ô(Ü—J‘J  h¨wÑ&7Ð%8Ð9Ô:÷{=;ô@ 
+‰ÐBÓ	Cñ BÜÓˆÜ
+ˆtŒ9ÜL‰L˜Ÿ™ 2›¸DÈTÖRäJ‰JÐ@ÔA÷
+Bô  ‡HHˆR„LÜ‡KKÐ'¸4Õ@Ü
+Z‰Z˜‹]F€BˆØ	
+ñ Ü
+
+9‰9_¸$Õ
+?ÜÔ÷ð 
+ñ 
+Ü
+
+9‰9Ð6ÈDÕ
+QÜ˜QŸU™U 8›_Ó-ˆEÜœB×,Ñ,×4Ñ4°eÔ<Ø.2ŒB×ÑÔ+Ø')ŒB×ÑÔ$Ø)+ŒB×ÑÔ&Ø#%ŒB×ÑÔ Ø.2ŒB×ÑÔ+Ø02ŒB×ÑÔ-äÔ÷
+ô  ‡KK¨DÖ1÷iñ üó, Yùò
+ ÷@ñ @ú÷B	eñ 	eú÷	ñ 	ú÷	ñ 	ú÷7=;ñ =;ú÷@Bñ Bú÷ñ ú÷
+ð 
+ús©   Á!Bi Åi-Å9i-Æ2(i3ÈH:i8Ñ5A7j,Ó,B9jÖ%0j,×+jØ 
+j,Ø
++jØ5Ij,âAj9ä4#kå!Cké i* é8j êj	ê
+j,êj	êj,êj)	ê$j,ê,j6 ê9k ëk ëk c                  óô  — t        ddd«       t        j                  d«       t         «       } t        j                  d¬«      5  t        j
+                  d «       t
+        | «      rt        j                  | dd¬«       nt        j                  d	«       d d d «       d
+gt
+        | «      rKt        | d
+   j                  «       j                  t        «      j                  «       j                  «       «      ng z   }t        j                  d¬«      5  t        j
+                  d«       t        j                  d
+|d¬«      }|d
+k(  rd n|}t        |«      }t
+        |«      r²t        j                  |dd¬«       |rKt!        |«      }t#        ||«      }dt%        |«      › dt'        j(                  «       j+                  d«      › d} n2t-        |«      }dt'        j(                  «       j+                  d«      › d} t        j.                  d|| dd¬«       nt        j                  d«       d d d «       t        j0                  d«       t        j2                  dd¬«      rt5        d«       y y # 1 sw Y   ŒÑxY w# 1 sw Y   ŒOxY w)Nu   ðŸ“ŠzReporte Consolidadoz,Visitas realizadas por agencia y por clienteu™   Se genera a partir de todo lo guardado en el historial (carpeta `data/`, o la carpeta de reportes que configures en `utils/helpers.py` â†’ REPORTES_DIR).Tr£   u;   **Por agencia** â€” clientes visitados y reportes generadosr¶   u/   AÃºn no hay reportes generados para consolidar.z (Todas)r8  z**Detalle por cliente**zFiltrar por agenciaÚsel_agencia_consolidador  ÚResultadoVisitas_rð   z%Y%m%dz.xlsxÚReporte_Consolidado_Todas_u   ðŸ“¥ Descargar Detalle en ExcelzAapplication/vnd.openxmlformats-officedocument.spreadsheetml.sheet)r’   r¡  rÊ  rË  r6   u$   Sin datos para este filtro todavÃ­a.r@   r  r  rB   )rX   r+   rÊ   r   rÉ   r:   rˆ   rÓ   ÚsortedÚdropnarØ   rÙ   ÚuniqueÚtolistr“  r   r    r!   r   r   ÚnowrÎ   r   rÔ  rþ   r;   r—   )Úresumen_agenciaÚagencias_disponiblesÚ
+agencia_selÚfiltroÚ detalleÚdetalle_anexo07Ú
+excel_dataÚnombre_archivos           r0   Úpantalla_consolidador  ¨  s  € Ü
+ˆ6Ð(Ð*XÔYÜ‡JJð	[ôô
+ 6Ó7€OÜ	
+‰˜TÔ	"ñ JÜ
+
+‰
+ÐQÔRÜ
+ˆÔ
+ÜL‰L˜¸dÈtÖTäJ‰JÐHÔI÷
+Jð &˜;ä
+ˆÔ
+ô 	ˆ˜yÑ)×0Ñ0Ó2×9Ñ9¼#Ó>×EÑEÓG×NÑNÓPÔQØ%'ñÐô
+ 
+‰˜TÔ	"ñ ?Ü
+
+‰
+Ð-Ô.Ü—l‘lÐ#8Ð:NÐTmÔnˆ
+Ø$¨	Ò1‘°{ˆÜ1°&Ó9ˆ ä
+ˆwŒ<ÜL‰L˜°dÀtÕLñ ä"1°&Ó"9Ü-¨o¸vÓF
+Ø#4´T¸+Ó5FÐ4GÀqÌÏÉË×I`ÑI`ÐaiÓIjÐHkÐkpÐ!q‘ä% gÓ.
+Ø#=¼h¿l¹l»n×>UÑ>UÐV^Ó>_Ð=`Ð`eÐ!fä×ÑØ7ØØ(ØXØ$(ö
+
+ô 
+J‰JÐ=Ô>÷7?ô:  ‡HHˆR„LÜ 	‡yyÐ)¸tÕ DÜˆZÕð E÷UJñ Jú÷?ð ?ús   ÁAI!ÄDI.É!I+ É.I7 r„   r]   r^   r_   r`   )r@   N)VÚ __doc__r   ÚpandasrÖ   Ú	streamlitr+   ÚioÚ
+utils.helpersr   r   r   r    r   r	   r
+   r
+   r   r
+   r   r   r   r   r   r   r   r   r   r   r   r   r   r   r   r   r   r   r    r!   Úset_page_configÚTENANT_ID_PERMITIDOÚDOMINIO_PERMITIDOrš  r1   r=   rÑ   rr   rj   Ústoprs   rÕ   Ú _correoÚ_tidÚendswithrÍ   r;   ru   ÚDEFAULTSr  r  r)  r…   rX   r\   r‡   rŠ   rz   r”   r—   r™   r   rô   rÝ   rÞ   rü   r
+  r*  rI  r[  r`  r\  rò  r  rK   rD   rE   rG   r.   r/   r0   ú<module>r     s)  ðñõ ã Û Û 	÷÷ ÷ ÷ ÷ ÷ ÷ ÷ ð €× Ñ Ø"ØØ
+Ø%õ	ñ 	Ð	Ô ð
+ =Ð Ø&Ð ð˜Dó òñ* Ô Ø€B‡JJˆxÕØ	
+‰×	Ò	ÙÔØ
+€B‡GG…Iàw‰w{‰{˜7Ó#Ò) r×0Ñ0Ó2€GØ
+
+7‰7;‰;uÓ
+Ò
+# €DØ
+×
+Ñ
+Ð-Ô
+.°4Ð;NÒ3NØˆ‰ð
+Vô	
+ð 	ˆ	‰	Ð"¨R¯Y©YÕ7Øˆ ‰ Œ	ð ØØ
+ØØØØØ
+
+ØØØð ØØñ!€ð$ 
+N‰NÓò  D€A€qØ × Ñ Ò  Øˆ×Ñ˜Òð ó
+ò Wò 	D€à"Ø(Ø
+ Ø#Ø"ñ
+€
+ò'ò.ò0ò
+1òQò}ò@$*òN/ò,ò#ò.&òT72ðx oØHØ;Øsñ	€ò2ò,Q-òj]2òB3ñn 	„
+à×Ñ×#Ò#ÙÕØ ×Ñ×Ñ˜mÒ+°×0@Ñ0@×0CÑ0CÐ0OÙÕØ ×Ñ×Ñ˜jÒ(¨B×,<Ñ,<×,KÑ,KÐ,SÙÕØ ×Ñ×Ñ˜lÒ*ÙÕØ ×Ñ×Ñ˜gÒ%ÙÕØ ×Ñ×Ñ˜kÒ)ÙÕØ ×Ñ×Ñ˜iÒ'ÙÕáÕr/   
