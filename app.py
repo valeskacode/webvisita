@@ -30,7 +30,9 @@ st.set_page_config(
 )
 load_css("assets/style.css")
 
-# ACCESO — solo cuentas de Microsoft 
+# --------------------------------------------------------------------------
+# ACCESO — solo cuentas de Microsoft del tenant de Caja Arequipa
+# --------------------------------------------------------------------------
 TENANT_ID_PERMITIDO = "f3831aea-ec1b-461b-b42f-ca26f9f78551"
 DOMINIO_PERMITIDO = "@cajaarequipa.pe"
 
@@ -309,7 +311,7 @@ def pantalla_busqueda():
                 st.session_state.uploader_key_version += 1
                 st.rerun()
 
-    # estado del sistema
+    # ---- Estado del Sistema --------------------------------------------
     with st.container(border=True):
         st.markdown("**Estado del Sistema**")
         conectado = st.session_state.df is not None
@@ -431,7 +433,9 @@ def render_cliente_encontrado(row, df):
 
 
 def render_lista_similares(resultados):
-    """lista de clientes parecidos por busqueda"""
+    """Lista de clientes parecidos/aproximados, igual al mockup: avatar
+    chico, nombre, DNI, saldo, y un botón para abrir directamente la
+    evaluación de ese cliente."""
     for idx, row in resultados.iterrows():
         nombre = safe_str(row.get("CLIENTE"), "Sin nombre")
         st.markdown(
@@ -601,10 +605,56 @@ def pantalla_ubicacion():
     c = cliente()
     header("📍", "Nueva Visita", "Verificación: negocio (obligatorio), laboral, aval y domicilio (opcionales)")
 
-    tabs = st.tabs([f"{TIPOS_VISITA[t][0]} {TIPOS_VISITA[t][1]}" for t in TIPOS_VISITA])
-    for tab, clave in zip(tabs, TIPOS_VISITA):
-        with tab:
-            render_visita(clave, c)
+    visitas = st.session_state.visitas
+    opciones = list(TIPOS_VISITA.keys())
+
+    # --- Resumen de progreso, siempre visible, sin tener que abrir cada tipo ---
+    cols_resumen = st.columns(len(opciones))
+    for col, clave in zip(cols_resumen, opciones):
+        icono, etiqueta = TIPOS_VISITA[clave][0], TIPOS_VISITA[clave][1]
+        obligatoria = TIPOS_VISITA[clave][6]
+        ok = clave in visitas
+        clase = "badge-ok" if ok else ("badge-pend" if obligatoria else "badge-warn")
+        with col:
+            st.markdown(
+                f'<div style="text-align:center;line-height:1.1;">'
+                f'<div style="font-size:1.1rem;">{icono}</div>'
+                f'<span class="badge {clase}" style="font-size:0.62rem;">{"✓ " + etiqueta if ok else etiqueta}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+
+    # --- Acciones rápidas arriba: no depende de bajar todo el formulario ---
+    st.write("")
+    st.markdown('<div class="nav-pie">', unsafe_allow_html=True)
+    ca1, ca2 = st.columns(2)
+    with ca1:
+        if st.button("⬅️ Cliente", use_container_width=True, key="back_ubic_top"):
+            ir_a("ficha")
+    with ca2:
+        if st.button("Ir al reporte ➡️", use_container_width=True, type="primary", key="next_ubic_top"):
+            guardar_avance()
+            ir_a("reporte")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # --- Selector del tipo de visita: SOLO se renderiza (foto + GPS) el activo.
+    # Antes se usaba st.tabs, pero Streamlit ejecuta el contenido de las 4
+    # pestañas en cada rerun (aunque solo una se ve), por eso al tomar la foto
+    # parecía que el formulario "Paso 3 · Datos del lugar" hasta "Ubicación"
+    # se repetía 4 veces (una cámara y una solicitud de GPS por cada tipo de
+    # visita, todas a la vez). Con un selector manual solo se procesa 1.
+    if "tipo_visita_activo" not in st.session_state:
+        st.session_state.tipo_visita_activo = opciones[0]
+
+    labels = [f"{TIPOS_VISITA[k][0]} {TIPOS_VISITA[k][1]}" for k in opciones]
+    idx_actual = opciones.index(st.session_state.tipo_visita_activo)
+    seleccion = st.radio(
+        "Tipo de visita", labels, index=idx_actual, horizontal=True,
+        key="selector_tipo_visita", label_visibility="collapsed",
+    )
+    st.session_state.tipo_visita_activo = opciones[labels.index(seleccion)]
+
+    render_visita(st.session_state.tipo_visita_activo, c)
 
     st.write("")
     st.markdown('<div class="nav-pie">', unsafe_allow_html=True)
@@ -617,6 +667,83 @@ def pantalla_ubicacion():
             guardar_avance()
             ir_a("reporte")
     st.markdown('</div>', unsafe_allow_html=True)
+
+
+# --------------------------------------------------------------------------
+# Dictado por voz (Web Speech API del navegador) para campos de texto
+# --------------------------------------------------------------------------
+_JS_DICTADO = """
+new Promise((resolve) => {
+  try {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { resolve({error: 'unsupported'}); return; }
+    const r = new SR();
+    r.lang = '__LANG__';
+    r.interimResults = false;
+    r.maxAlternatives = 1;
+    let resuelto = false;
+    r.onresult = (e) => { resuelto = true; resolve({texto: e.results[0][0].transcript}); };
+    r.onerror = (e) => { resuelto = true; resolve({error: e.error}); };
+    r.onend = () => { if (!resuelto) resolve({error: 'no-speech'}); };
+    r.start();
+  } catch (e) {
+    resolve({error: String(e)});
+  }
+})
+"""
+
+_MENSAJES_ERROR_DICTADO = {
+    "unsupported": "Tu navegador no soporta dictado por voz. Usa Chrome, Edge o Safari recientes.",
+    "not-allowed": "Permiso de micrófono denegado. Actívalo en la configuración del sitio (icono de candado junto a la barra de direcciones).",
+    "no-speech": "No se detectó voz. Intenta de nuevo, más cerca del micrófono.",
+    "audio-capture": "No se encontró micrófono disponible en este dispositivo.",
+    "network": "Error de red al reconocer el audio. Intenta de nuevo.",
+}
+
+
+def campo_con_dictado(label, key_texto, valor_defecto="", area=False, idioma="es-PE"):
+    """Muestra un text_input/text_area con un botón 🎤 al costado para dictar por voz."""
+    from streamlit_js_eval import streamlit_js_eval
+
+    if key_texto not in st.session_state:
+        st.session_state[key_texto] = valor_defecto or ""
+
+    flag_grabando = f"{key_texto}__grabando"
+    contador_key = f"{key_texto}__intento_mic"
+    if contador_key not in st.session_state:
+        st.session_state[contador_key] = 0
+
+    col_txt, col_mic = st.columns([6, 1])
+    with col_txt:
+        if area:
+            st.text_area(label, key=key_texto)
+        else:
+            st.text_input(label, key=key_texto)
+    with col_mic:
+        st.markdown('<div style="height:1.6rem"></div>', unsafe_allow_html=True)
+        if st.button("🎤", key=f"btn_mic_{key_texto}", help="Dictar por voz", use_container_width=True):
+            st.session_state[contador_key] += 1
+            st.session_state[flag_grabando] = True
+            st.rerun()
+
+    if st.session_state.get(flag_grabando):
+        st.caption("🎙️ Escuchando… habla ahora. Se detiene sola al terminar la frase.")
+        resultado = streamlit_js_eval(
+            js_expressions=_JS_DICTADO.replace("__LANG__", idioma),
+            key=f"js_mic_{key_texto}_{st.session_state[contador_key]}",
+        )
+        if resultado:
+            st.session_state[flag_grabando] = False
+            if isinstance(resultado, dict) and resultado.get("texto"):
+                nuevo = resultado["texto"].strip()
+                actual = (st.session_state.get(key_texto) or "").strip()
+                st.session_state[key_texto] = f"{actual} {nuevo}".strip() if actual else nuevo
+            elif isinstance(resultado, dict) and resultado.get("error"):
+                err = resultado["error"]
+                st.warning(f"⚠️ {_MENSAJES_ERROR_DICTADO.get(err, f'No se pudo reconocer el audio ({err}).')}")
+            st.rerun()
+
+    return st.session_state.get(key_texto, "")
 
 
 def render_visita(clave, c):
@@ -647,11 +774,16 @@ def render_visita(clave, c):
 
         # PASO 4 — Entrevista, comentarios y cliente visitado
         st.markdown("**Paso 4 · Observaciones**")
+        st.caption("Puedes escribir o usar el botón 🎤 para dictar por voz.")
         ahora_v = ahora_peru()
-        entrevista_con = st.text_input("Entrevista con", value=data.get("entrevista_con", ""), key=f"entrevista_{clave}")
-        comentarios = st.text_area("Comentarios", value=data.get("comentarios", ""), key=f"comentarios_{clave}")
+        entrevista_con = campo_con_dictado(
+            "Entrevista con", f"entrevista_{clave}", data.get("entrevista_con", "")
+        )
+        comentarios = campo_con_dictado(
+            "Comentarios", f"comentarios_{clave}", data.get("comentarios", ""), area=True
+        )
 
-        # cliente visitado 
+        # Cliente visitado solo en negocio (es la visita principal)
         if clave == "negocio":
             st.markdown("**Cliente visitado**")
             opciones_cv = ["— Selecciona —"] + CLIENTE_VISITADO_OPCIONES
@@ -782,10 +914,10 @@ def render_visita(clave, c):
                      use_container_width=True, type="primary", disabled=not puede_guardar):
             st.session_state.visitas[clave] = {
                 "direccion": direccion, 
-                "distrito": distrito,        
-                "provincia": provincia,      
-                "departamento": departamento,
-                "referencia": referencia,    
+                "distrito": distrito,        # Asegúrate de incluir esto
+                "provincia": provincia,      # Asegúrate de incluir esto
+                "departamento": departamento,# Asegúrate de incluir esto
+                "referencia": referencia,    # Asegúrate de incluir esto
                 "fecha": ahora_v.strftime("%d/%m/%Y"), 
                 "hora": ahora_v.strftime("%H:%M:%S"),
                 "entrevista_con": entrevista_con, 
@@ -834,8 +966,8 @@ def pantalla_reporte():
     if "negocio" not in visitas:
         st.warning("Acción requerida — falta la visita obligatoria al **Negocio**. Puedes generar el reporte igual; quedará indicado como pendiente.")
 
-    # leer criterios desde el snapshot guardado al avanzar de pantalla
-    # session_state normal como respaldo
+    # Leer criterios desde el snapshot guardado al avanzar de pantalla
+    # session_state normal como respaldo.
     criterios_dict = st.session_state.get("_criterios_snapshot") or \
                      {k: v for k, v in st.session_state.items() if k.startswith("chk_")}
     criterios_txt = criterios_seleccionados_lista(criterios_dict, st.session_state.get("calif_revision", ""))
@@ -880,7 +1012,7 @@ def pantalla_reporte():
 
         base_nombre = f"Visita_{slug(c.get('CLIENTE'))}_{ahora_peru().strftime('%Y%m%d_%H%M')}"
 
-        # pre-generar los bytes para Word y PDF 
+        # Pre-generar los bytes para Word y PDF 
         with st.spinner("Preparando archivos..."):
             buf_word = generar_word(c, criterios_txt, calc, ing, visitas,
                                     st.session_state.garantias, st.session_state.rcc,
@@ -908,7 +1040,7 @@ def pantalla_reporte():
                 use_container_width=True, type="primary", key="dl_pdf",
             )
 
-        # registro historial
+        # Registrar historial y guardar 
         if descargado_word:
             guardado = guardar_reporte_en_carpeta(nombre_word, buf_word.getvalue())
             sincronizar_historial_onedrive()
@@ -993,7 +1125,7 @@ def pantalla_consolidado():
         if len(detalle):
             st.dataframe(detalle, use_container_width=True, hide_index=True)
 
-            # descarga 
+            # --- Lógica de descarga agregada ---
             if filtro:
                 # Se filtró por una agencia 
                 detalle_anexo07 = reporte_anexo07(filtro)
