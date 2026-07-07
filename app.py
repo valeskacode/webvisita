@@ -30,9 +30,7 @@ st.set_page_config(
 )
 load_css("assets/style.css")
 
-# --------------------------------------------------------------------------
-# ACCESO — solo cuentas de Microsoft del tenant de Caja Arequipa
-# --------------------------------------------------------------------------
+# ACCESO — solo cuentas de Microsoft 
 TENANT_ID_PERMITIDO = "f3831aea-ec1b-461b-b42f-ca26f9f78551"
 DOMINIO_PERMITIDO = "@cajaarequipa.pe"
 
@@ -311,7 +309,7 @@ def pantalla_busqueda():
                 st.session_state.uploader_key_version += 1
                 st.rerun()
 
-    # ---- Estado del Sistema --------------------------------------------
+    # estado del sistema
     with st.container(border=True):
         st.markdown("**Estado del Sistema**")
         conectado = st.session_state.df is not None
@@ -433,9 +431,7 @@ def render_cliente_encontrado(row, df):
 
 
 def render_lista_similares(resultados):
-    """Lista de clientes parecidos/aproximados, igual al mockup: avatar
-    chico, nombre, DNI, saldo, y un botón para abrir directamente la
-    evaluación de ese cliente."""
+    """lista de clientes parecidos por busqueda"""
     for idx, row in resultados.iterrows():
         nombre = safe_str(row.get("CLIENTE"), "Sin nombre")
         st.markdown(
@@ -655,7 +651,7 @@ def render_visita(clave, c):
         entrevista_con = st.text_input("Entrevista con", value=data.get("entrevista_con", ""), key=f"entrevista_{clave}")
         comentarios = st.text_area("Comentarios", value=data.get("comentarios", ""), key=f"comentarios_{clave}")
 
-        # Cliente visitado solo en negocio (es la visita principal)
+        # cliente visitado 
         if clave == "negocio":
             st.markdown("**Cliente visitado**")
             opciones_cv = ["— Selecciona —"] + CLIENTE_VISITADO_OPCIONES
@@ -786,10 +782,10 @@ def render_visita(clave, c):
                      use_container_width=True, type="primary", disabled=not puede_guardar):
             st.session_state.visitas[clave] = {
                 "direccion": direccion, 
-                "distrito": distrito,        # Asegúrate de incluir esto
-                "provincia": provincia,      # Asegúrate de incluir esto
-                "departamento": departamento,# Asegúrate de incluir esto
-                "referencia": referencia,    # Asegúrate de incluir esto
+                "distrito": distrito,        
+                "provincia": provincia,      
+                "departamento": departamento,
+                "referencia": referencia,    
                 "fecha": ahora_v.strftime("%d/%m/%Y"), 
                 "hora": ahora_v.strftime("%H:%M:%S"),
                 "entrevista_con": entrevista_con, 
@@ -838,8 +834,8 @@ def pantalla_reporte():
     if "negocio" not in visitas:
         st.warning("Acción requerida — falta la visita obligatoria al **Negocio**. Puedes generar el reporte igual; quedará indicado como pendiente.")
 
-    # Leer criterios desde el snapshot guardado al avanzar de pantalla
-    # session_state normal como respaldo.
+    # leer criterios desde el snapshot guardado al avanzar de pantalla
+    # session_state normal como respaldo
     criterios_dict = st.session_state.get("_criterios_snapshot") or \
                      {k: v for k, v in st.session_state.items() if k.startswith("chk_")}
     criterios_txt = criterios_seleccionados_lista(criterios_dict, st.session_state.get("calif_revision", ""))
@@ -884,7 +880,7 @@ def pantalla_reporte():
 
         base_nombre = f"Visita_{slug(c.get('CLIENTE'))}_{ahora_peru().strftime('%Y%m%d_%H%M')}"
 
-        # Pre-generar los bytes para Word y PDF 
+        # pre-generar los bytes para Word y PDF 
         with st.spinner("Preparando archivos..."):
             buf_word = generar_word(c, criterios_txt, calc, ing, visitas,
                                     st.session_state.garantias, st.session_state.rcc,
@@ -912,7 +908,7 @@ def pantalla_reporte():
                 use_container_width=True, type="primary", key="dl_pdf",
             )
 
-        # Registrar historial y guardar 
+        # registro historial
         if descargado_word:
             guardado = guardar_reporte_en_carpeta(nombre_word, buf_word.getvalue())
             sincronizar_historial_onedrive()
@@ -997,7 +993,7 @@ def pantalla_consolidado():
         if len(detalle):
             st.dataframe(detalle, use_container_width=True, hide_index=True)
 
-            # --- Lógica de descarga agregada ---
+            # descarga 
             if filtro:
                 # Se filtró por una agencia 
                 detalle_anexo07 = reporte_anexo07(filtro)
